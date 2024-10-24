@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    direction: rtl;
+    text-align: right;
+
+}
+.nav-link{
+    transition: unset !important;
+}
+.nav-item{
+    padding-left: 10px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.bg-main{
+    background-color: #f2f9fc;
+}
+
