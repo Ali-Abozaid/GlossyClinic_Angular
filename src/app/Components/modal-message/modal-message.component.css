@@ -1,0 +1,36 @@
+.dialog-title {
+    background-color: #007bff;
+    color: white;
+    font-size: 22px;
+    padding: 12px;
+    margin: 24px 24px 16px 24px;
+    
+    text-align: center;
+
+
+  }
+  
+  .dialog-content {
+    font-size: 16px;
+    padding: 16px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+  }
+  
+  button {
+    background-color: #ff9800;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+    border: none;
+    margin: auto;
+  }
+  
+  button:hover {
+    background-color: #975b01;
+  }
+  

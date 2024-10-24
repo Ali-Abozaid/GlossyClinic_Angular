@@ -1,0 +1,49 @@
+<div class="row justify-content-center mb-3 mt-3">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="mt-3 mb-4">
+            <div>
+                <div class="bg-header p-4 d-flex flex-column flex-md-row justify-content-between align-items-center rounded-5 rounded-bottom-0 shadow">
+                    <h1 class="mb-0 fs-1 text-center text-md-start fw-bold">تسجيل الدخول</h1>
+                    <img src="./assets/images/login.png" class="img-fluid mt-3 mt-md-0" width="200" alt="aa">
+                </div>
+                <div class="bg-main rounded-5 rounded-top-0 shadow">
+                    <form [formGroup]="loginForm" class="p-5 pt-4" (ngSubmit)="handelform()">
+                        <div class="mb-3">
+                            <label for="email" class="fs-4">البريد الألكتروني:</label>
+                            <input type="email" id="email" class="form-control mt-2" formControlName="email" placeholder="ادخل البريد الالكتروني" #inputEmail>
+                            <div class="alert alert-danger mt-3" *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.touched || inputEmail.value.length > 0)">
+                                <p *ngIf="loginForm.get('email')?.getError('required')" class="mb-0">البريد الألكتروني مطلوبة</p>
+                                <p *ngIf="loginForm.get('email')?.getError('email')" class="mb-0">البريد الألكتروني غير صحيح</p>
+                            </div>
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <label for="password" class="fs-4">كلمة السر:</label>
+                            <input
+                            [type]="showPassword ? 'text' : 'password'"
+                                id="password"
+                              class="form-control"
+                              formControlName="password"
+                              placeholder="ادخل كلمة السر"
+                              #inputPassword
+                            />
+                            <div class="password-toggle-btn" (click)="togglePasswordVisibility()">
+                                <i [ngClass]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                            </div>
+                            <a
+                              routerLink="/forgotPassword"
+                              class="link-primary mt-3 text-decoration-underline"
+                              >هل نسيت كلمة السر؟</a
+                            >
+                        </div>
+                        <p class="alert alert-danger mt-2 mx-auto text-center" *ngIf="msgErorr">{{msgErorr}}</p>
+                        <button [disabled]="loginForm.invalid" class="btn btn-success fs-4 px-5 d-block ms-auto mt-4">
+                            دخول
+                            <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,125 @@
+/* Footer Main Section */
+.footer-section {
+  background: linear-gradient(135deg, #245886, #345E82); /* Gradient for a modern look */
+  color: #ffffff;
+  padding: 20px 0;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3); /* Slight shadow for elevation */
+}
+
+.footer-logo {
+  max-width: 120px;
+  height: auto;
+  border: 2px solid #ffffff; /* Border for emphasis */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Footer Column Titles */
+.footer-column h4 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  word-wrap: break-word;
+  border-bottom: 2px solid #699aca;
+  padding-bottom: 5px;
+  color: #4DB8FF; /* Different color to highlight section titles */
+}
+
+.footer-column {
+  flex: 1;
+  padding: 15px;
+}
+/* Footer Links Styling */
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin: 8px 0;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  word-wrap: break-word;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.2s ease; /* Transition for color and movement */
+}
+
+.footer-column ul li a:hover {
+  color: #4DB8FF; /* Gold color for hover to make links stand out */
+  transform: translateX(5px); /* Slight shift on hover */
+  text-decoration: underline;
+}
+
+/* Footer Info Section */
+.footer-column p {
+  margin: 5px 0;
+  line-height: 1.6; /* Increased line height for better readability */
+}
+
+.footer-column i {
+  margin-right: 8px; /* Space between icons and text */
+  color: #4DB8FF; /* Color match with titles */
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+  background-color: #2a4f7a; /* Slightly darker shade for bottom footer */
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 1.1rem;
+  word-wrap: break-word;
+  color: #ffffff; /* Gold color for copyright text */
+}
+
+/* Responsive Design Enhancements */
+
+/* Medium Devices (Tablets, up to 768px) */
+@media (max-width: 768px) {
+  .footer-section .row {
+    flex-direction: column;
+    text-align: center; /* Center align content for better readability */
+  }
+
+  .footer-logo {
+    max-width: 100px;
+    margin: 0 auto 10px;
+  }
+
+  .footer-column {
+    margin-bottom: 20px;
+  }
+
+  .footer-column h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Small Devices (Phones, up to 480px) */
+@media (max-width: 480px) {
+  .footer-column {
+    flex-basis: 100%;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ffffff; /* Separator for better clarity */
+  }
+
+  .footer-column h4 {
+    font-size: 1.1rem;
+  }
+
+  .footer-logo {
+    max-width: 80px;
+  }
+
+  .footer-bottom p {
+    font-size: 0.95rem;
+  }
+}

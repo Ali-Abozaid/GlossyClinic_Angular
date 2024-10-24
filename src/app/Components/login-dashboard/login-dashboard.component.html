@@ -1,0 +1,51 @@
+<div class="container-fluid p-0 m-0">
+  <div class="card background-image-container position-fixed"></div>
+  <div class="row d-flex justify-content-center align-items-center vh-100 ">
+    <div class="col-12 col-md-8 col-lg-6 border bg-white p-4 rounded rounded-4">
+      <div class="p-4 d-flex flex-column flex-sm-row justify-content-between align-items-center text-center text-sm-start">
+        <h2 class="fw-bold text-primary mt-3 mt-sm-4 title">تسجيل الدخول</h2>
+        <img
+            src="./assets/images/EnhancedLogo.png"
+            class="img-fluid mt-3 mt-sm-0"
+            style="max-width: 150px;"
+            alt="Logo"
+        />
+    </div>
+      <hr/>
+      <form [formGroup]="loginForm" (ngSubmit)="handleForm()" class="mt-3">
+        <!-- Email input -->
+        <div class="mb-3">
+          <label for="email" class="fs-4">البريد الألكتروني:</label>
+          <input type="email" id="email" class="form-control mt-2 p-2 fs-5" formControlName="email" placeholder="ادخل البريد الالكتروني" #inputEmail>
+          <div class="alert alert-danger mt-3 p-3" *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.touched || inputEmail.value.length > 0)">
+              <p *ngIf="loginForm.get('email')?.getError('required')" class="mb-0 h6">البريد الألكتروني مطلوبة</p>
+              <p *ngIf="loginForm.get('email')?.getError('email')" class="mb-0 h6">البريد الألكتروني غير صحيح</p>
+          </div>
+      </div>
+      <div class="mb-3 position-relative">
+          <label for="password" class="fs-4">كلمة السر:</label>
+          <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+            class="form-control fs-5 p-2"
+            formControlName="password"
+            placeholder="ادخل كلمة السر"
+            #inputPassword
+          />
+          <div class="password-toggle-btn fs-5" (click)="togglePasswordVisibility()">
+              <i [ngClass]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </div>
+      </div>
+
+        <!-- Error message -->
+        <p class="alert alert-danger mt-2 text-center h6 p-3" *ngIf="msgError">{{ msgError }}</p>
+
+        <!-- Login button -->
+        <button [disabled]="loginForm.invalid" class="btn btn-success fs-4 px-5 d-block ms-auto mt-4">
+          دخول
+          <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
+      </button>
+      </form>
+    </div>
+  </div>
+</div>

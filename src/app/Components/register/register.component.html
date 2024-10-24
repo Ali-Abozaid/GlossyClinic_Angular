@@ -1,0 +1,179 @@
+<div class="container mt-5 mb-5">
+    <div class="card mt-5">
+        <div class="row g-0">
+            <div class="col-lg-7">
+                <div class="form-section">
+                    <h2 class="text-center mb-4">انشاء حساب جديد</h2>
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                        <div class="row d-flex align-items-center">
+                            
+                            <div class="col-md-6 mb-1">
+                                <label for="name">الاسم</label>
+                                <input type="text" id="name" class="form-control" formControlName="name" required placeholder="ادخل الاسم" style="text-align: right;">
+                                <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+                                    <small class="text-danger" *ngIf="registerForm.get('name')?.errors?.['required']">الاسم مطلوب</small>
+                                    <small class="text-danger" *ngIf="registerForm.get('name')?.errors?.['pattern']">الاسم يجب أن يحتوي على أحرف فقط</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-1">
+                                <label for="age">العمر</label>
+                                <input type="number" id="age" class="form-control" formControlName="age" required placeholder="ادخل العمر" style="text-align: right;" min="1">
+                                <div *ngIf="registerForm.get('age')?.invalid && (registerForm.get('age')?.dirty || registerForm.get('age')?.touched)">
+                                    <small class="text-danger" *ngIf="registerForm.get('age')?.errors?.['required']">العمر مطلوب </small>
+                                    <small class="text-danger" *ngIf="registerForm.get('age')?.errors?.['min']">
+                                        ادخل العمر بشكل صحيح
+                                       </small>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="email"  class="form-label text-right">البريد الإلكتروني</label>
+                                <input type="email" id="email" class="form-control" formControlName="email" required placeholder="example&#64;gmail.com" style="text-align: right;">
+                                <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                                    <small class="text-danger" *ngIf="registerForm.get('email')?.errors?.['required']">البريد الإلكتروني مطلوب</small>
+                                    <small class="text-danger" *ngIf="registerForm.get('email')?.errors?.['invalidEmail']">البريد الإلكتروني غير صالح</small>
+                                    <small class="text-danger" *ngIf="registerForm.get('email')?.errors?.['emailInUse']">هذا البريد الإلكتروني مستخدم بالفعل</small>
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="password">كلمة المرور</label>
+                                <div class="password-input-wrapper">
+                                  <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control" formControlName="password" required>
+                                  <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                                    <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: black;"></i>
+                                  </button>
+                                </div>
+                                <div *ngIf="showPasswordRequirements">
+                                    <div class="password-strength-meter mt-2">
+                                        <div class="strength-bar" 
+                                             [ngClass]="getStrengthClass()"
+                                             [ngStyle]="{ 'width': passwordStrength + '%' }">
+                                        </div>
+                                      </div>
+                                  <div class="password-requirements mt-2">
+                                    <p class="requirement" [ngClass]="{'met': passwordMeetsLength}">
+                                      <i class="fas" [ngClass]="passwordMeetsLength ? 'fa-check' : 'fa-times'"></i>
+                                      6 أحرف على الأقل
+                                    </p>
+                                    <p class="requirement" [ngClass]="{'met': passwordHasLetterCase}">
+                                        <i class="fas" [ngClass]="passwordHasLetterCase ? 'fa-check' : 'fa-times'"></i>
+                                        حرف كبير وحرف صغير على الأقل
+                                      </p>
+                                    <p class="requirement" [ngClass]="{'met': passwordHasNumber}">
+                                      <i class="fas" [ngClass]="passwordHasNumber ? 'fa-check' : 'fa-times'"></i>
+                                      رقم واحد على الأقل
+                                    </p>
+                                    <p class="requirement" [ngClass]="{'met': passwordHasSpecialChar}">
+                                      <i class="fas" [ngClass]="passwordHasSpecialChar ? 'fa-check' : 'fa-times'"></i>
+                                      رمز خاص واحد على الأقل
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmPassword">تأكيد كلمة المرور</label>
+                                <input [type]="'password'"  id="confirmPassword" class="form-control" formControlName="confirmPassword" required>
+                                <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+                                    <small class="text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">تأكيد كلمة المرور مطلوب</small>
+                                    <small class="text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.['mustMatch']">يجب أن تتطابق كلمات المرور</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phoneNumber">رقم الهاتف</label>
+                                <input type="tel" id="phoneNumber" class="form-control" formControlName="phoneNumber" required placeholder="01xxxxxxxxx" style="text-align: right;">
+                                <div *ngIf="registerForm.get('phoneNumber')?.invalid && (registerForm.get('phoneNumber')?.dirty || registerForm.get('phoneNumber')?.touched)">
+                                    <small class="text-danger" *ngIf="registerForm.get('phoneNumber')?.errors?.['required']">رقم الهاتف مطلوب</small>
+                                    <small class="text-danger" *ngIf="registerForm.get('phoneNumber')?.errors?.['pattern']">صيغة رقم الهاتف غير صحيحة</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="gender">النوع</label>
+                                <select id="gender" class="form-select" formControlName="gender" required>
+                                    <option value="">اختر النوع</option>
+                                    <option value="0">ذكر</option>
+                                    <option value="1">أنثى</option>
+                                </select>
+                                <div *ngIf="registerForm.get('gender')?.invalid && (registerForm.get('gender')?.dirty || registerForm.get('gender')?.touched)">
+                                    <small class="text-danger" *ngIf="registerForm.get('gender')?.errors?.['required']">الجنس مطلوب</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">العنوان</label>
+                            <input type="text" id="address" class="form-control" formControlName="address" required placeholder="ادخل العنوان" style="text-align: right;">
+                            <div *ngIf="registerForm.get('address')?.invalid && (registerForm.get('address')?.dirty || registerForm.get('address')?.touched)">
+                                <small class="text-danger" *ngIf="registerForm.get('address')?.errors?.['required']">العنوان مطلوب</small>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-4 mb-3">التاريخ الطبي</h3>
+                        <div class="medical-history">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="hypertension" formControlName="hypertension">
+                                <label class="form-check-label" for="hypertension">ارتفاع ضغط الدم</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="diabetes" formControlName="diabetes">
+                                <label class="form-check-label" for="diabetes">مرض السكري</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="stomachAche" formControlName="stomachAche">
+                                <label class="form-check-label" for="stomachAche">آلام المعدة</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="periodontalDisease" formControlName="periodontalDisease">
+                                <label class="form-check-label" for="periodontalDisease">أمراض اللثة</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isPregnant" formControlName="isPregnant">
+                                <label class="form-check-label" for="isPregnant">حامل</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isBreastfeeding" formControlName="isBreastfeeding">
+                                <label class="form-check-label" for="isBreastfeeding">مرضعة</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isSmoking" formControlName="isSmoking">
+                                <label class="form-check-label" for="isSmoking">مدخن</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="kidneyDiseases" formControlName="kidneyDiseases">
+                                <label class="form-check-label" for="kidneyDiseases">أمراض الكلى</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="heartDiseases" formControlName="heartDiseases">
+                                <label class="form-check-label" for="heartDiseases">أمراض القلب</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-4" [disabled]="registerForm.invalid || loading">تسجيل</button>
+                        <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-5 logo-section">
+                <img class="logo-placeholder" src="Images/logoo.png">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Success Modal -->
+<div *ngIf="showSuccessModal" class="success-modal-overlay">
+    <div class="success-modal">
+      <i class="fas fa-check-circle success-icon"></i>
+      <h4 class="success-title">تم التسجيل بنجاح</h4>
+      <button class="success-button" (click)="closeSuccessModal()">حسناً</button>
+      <br><br>
+      <a class="gradient-button" (click)="redirectToLoginPage()">
+        <i class="fas fa-arrow-right"></i>
+        <span>الذهاب لصفحة تسجيل الدخول</span>
+      </a>
+    </div>
+  </div>

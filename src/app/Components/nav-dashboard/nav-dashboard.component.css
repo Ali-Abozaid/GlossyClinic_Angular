@@ -1,0 +1,32 @@
+.avatar-md {
+  height: 4rem;
+  width: 4rem;
+}
+.rounded-circle {
+  border-radius: 50%!important;
+}
+.img-thumbnail {
+  padding: 0.25rem;
+  background-color: #f1f3f7;
+  border: 1px solid #eff0f2;
+  border-radius: 0.75rem;
+}
+
+
+/* Custom CSS for responsive offcanvas */
+@media (max-width: 768px) {
+  .offcanvas {
+      width: 100% !important; /* Full width on small screens */
+  }
+
+  /* Ensure that text is always visible on smaller screens */
+  .offcanvas .nav-link span {
+      display: inline !important; /* Force display of link text */
+  }
+}
+
+@media (min-width: 769px) {
+  .offcanvas {
+      width: 25% !important; /* Default width on larger screens */
+  }
+}

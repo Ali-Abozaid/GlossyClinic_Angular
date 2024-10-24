@@ -1,0 +1,61 @@
+
+
+<div class="row justify-content-center mt-5 mb-5">
+  <div class="col-12 col-md-8 col-lg-6">
+    <div class="card shadow p-4">
+      <h2>اعادة تعيين كلمة السر</h2>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
+        <div class="mb-3">
+          <label for="email" class="form-label">عنوان البريد الالكتروني :</label>
+          <input type="email" id="email" class="form-control" [value]="email" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="code" class="form-label">الكود المرسل :</label>
+          <input type="text" id="code" class="form-control" formControlName="code" placeholder="ادخل الكود">
+          <div class="alert alert-danger mt-2" *ngIf="resetPasswordForm.get('code')?.touched && resetPasswordForm.get('code')?.invalid">
+            <p *ngIf="resetPasswordForm.get('code')?.getError('required')">من فضلك ادخل الكود.</p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="newPassword" class="form-label">كلمة السر الجديده:</label>
+          <input type="password" id="newPassword" class="form-control" formControlName="newPassword" placeholder="ادخل كلمة السر الجديده">
+          <div class="alert alert-danger mt-2" *ngIf="resetPasswordForm.get('newPassword')?.touched && resetPasswordForm.get('newPassword')?.invalid">
+            <p *ngIf="resetPasswordForm.get('newPassword')?.getError('required')">من فضلك ادخل كلمة السر  .</p>
+            <p *ngIf="resetPasswordForm.get('newPassword')?.getError('minlength')">كلمة السر علي الاقل تتكون من ستة احرف .</p>
+          </div>
+        </div>
+        <p class="alert alert-danger mt-2" *ngIf="msgError">{{msgError}}</p>
+        <button [disabled]="resetPasswordForm.invalid" class="btn btn-success w-100">حفظ </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}"> 
+
+  <div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+        <div class="modal-header">
+          <div class="mx-auto">
+            <img src="./assets/images/EnhancedLogo.png" width="200" height="100" >
+
+          </div>
+    </div>
+    <div class="modal-body text-center">
+      <h4 class="h5">
+        تم تغير كلمة السر  
+        <i class="fas fa-check-circle" style="color: green; margin-right:4px;"></i>
+      </h4>	
+      <button class="btn btn-success mt-3" data-dismiss="modal" (click)="closePopup()">اذهب لتسجيل الدخول</button>
+    </div>
+  </div>
+</div>
+</div>

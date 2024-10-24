@@ -1,0 +1,334 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Tajawal', 'Poppins', sans-serif;
+    font-size: 21px;
+    line-height: 1.5;
+    color: #333;
+}
+
+h1, h2, h3, .form-title {
+    font-family: 'Tajawal', 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    color: #2c3e50;
+}
+input, select, textarea,small {
+    font-family: 'Tajawal', 'Poppins', sans-serif;
+    text-align: right;
+    font-size: 16px;
+}
+
+
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 1500px;
+    max-width: 100%;
+    background-color: #d7dde08a;
+    margin-bottom: 20px;
+}
+
+.logo-section {
+    background: linear-gradient(45deg, #2196f3, #3f51b5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.logo-placeholder {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: white;
+    font-weight: bold;
+}
+
+.form-section {
+    padding: 2rem;
+}
+
+.form-section label {
+    text-align: right;
+    display: block;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+}
+
+button {
+    font-family: 'Tajawal', 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.btn-primary {
+    background-color: #2196f3;
+    border-color: #2196f3;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+    border-color: #1e88e5;
+}
+
+.text-danger {
+    font-size: 0.875em;
+}
+
+.medical-history {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+label {
+    font-weight: 500;
+    color: #555;
+    font-family: 'Tajawal', 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: right;
+}
+.custom{
+    position: absolute;
+    right: 88%;
+    transform: translateY(-100%);
+}
+
+@media(max-width: 1200px){
+    .custom{
+        right: 80%;
+        transform: translateY(-100%);
+    }
+}
+  
+@media (max-width: 991px) and (min-width: 768px) {
+    .card {
+        width: 100%;
+    }
+
+    .logo-section {
+        width: 100%; 
+        order: -1; 
+        min-height: auto;
+    }
+
+    .logo-placeholder {
+        width: 200px; 
+        height: 200px;
+    }
+
+    .form-section {
+        padding: 1rem;
+    }
+
+    .medical-history {
+        grid-template-columns: 1fr; 
+    }
+
+    .custom{
+        right: 80%;
+        transform: translateY(-100%);
+    }
+}
+
+@media (max-width: 767px) {
+    .card {
+        width: 100%;
+    }
+
+    .logo-section {
+        order: -1;
+        width: 100%; 
+        min-height: auto;
+    }
+
+    .logo-placeholder {
+        width: 150px;
+        height: 150px;
+    }
+
+    .form-section {
+        padding: 1rem;
+    }
+
+    .medical-history {
+        grid-template-columns: 1fr;
+    }
+    .custom{
+        right: 88%;
+        transform: translateY(-100%);
+    }
+}
+@media(max-width:576px){
+    .custom{
+        right: 80%;
+        transform: translateY(-100%);
+    }
+}
+
+
+
+/**Modal*/
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-confirm {
+    color: #434e65;
+    width: 90%; /* Changed to 90% for responsiveness */
+    max-width: 525px; /* Maintains max width for larger screens */
+    margin: 30px auto;
+    margin-top: 100px;
+}
+
+.modal-confirm .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.modal-confirm .modal-header {
+    background: #0C193F;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: -20px -20px 0;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 28px; /* Adjusted font size for smaller screens */
+    margin: 10px 0;
+}
+
+.modal-confirm .form-control,
+.modal-confirm .btn {
+    min-height: 40px;
+    border-radius: 3px;
+}
+
+.modal-confirm .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    text-shadow: none;
+    opacity: 0.5;
+}
+
+.modal-confirm .close:hover {
+    opacity: 0.8;
+}
+
+.modal-confirm .icon-box {
+    color: #fff;
+    width: 80px; /* Adjusted for smaller screens */
+    height: 80px; /* Adjusted for smaller screens */
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 5px solid #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.modal-confirm .icon-box i {
+    font-size: 48px; /* Adjusted font size for smaller screens */
+    margin: -4px 0 0 -4px;
+}
+
+.modal-confirm .btn {
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    border-radius: 30px;
+    margin-top: 10px;
+    padding: 6px 20px;
+    border: none;
+}
+
+.modal-confirm .btn:hover,
+.modal-confirm .btn:focus {
+    background: #eda645;
+    outline: none;
+}
+
+.modal-confirm .btn span {
+    margin: 1px 3px 0;
+    float: left;
+}
+
+.modal-confirm .btn i {
+    margin-left: 1px;
+    font-size: 20px;
+    float: right;
+}
+
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .modal-confirm h4 {
+        font-size: 24px; /* Smaller font size for mobile */
+    }
+
+    .modal-confirm .icon-box {
+        width: 70px;
+        height: 70px;
+    }
+
+    .modal-confirm .icon-box i {
+        font-size: 40px;
+    }
+
+    .modal-confirm {
+        padding: 15px; /* Add padding for small screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-confirm {
+        width: 95%; /* Full width on extra small devices */
+        margin-top: 50px; /* Adjust top margin */
+    }
+
+    .modal-confirm .modal-header {
+        padding: 20px;
+    }
+
+    .modal-confirm h4 {
+        font-size: 20px; /* Even smaller font size for mobile */
+    }
+}

@@ -1,0 +1,384 @@
+<div class="bg-main">
+
+    
+  <h1 class="text-center mt-5 mb-0 fw-bold fs-1 pt-4 text-success">المرضي :</h1>
+
+
+<div class="d-flex justify-content-center justify-content-md-start pt-4 px-3">
+  <div class="input-group shadow-sm rounded" style="max-width: 500px; background-color: #f8f9fa; border: 1px solid #ddd;">
+      <span class="input-group-text bg-transparent border-0 ps-3">
+          <i class="fas fa-search text-muted"></i> <!-- Search icon -->
+      </span>
+      <input
+          type="text"
+          class="form-control border-0 rounded-end bg-transparent"
+          placeholder="بحث بالأسم أو رقم الهاتف"
+          style="font-size: 1.25rem; color: #333;"
+      >
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row mt-5">
+          @for (patient of filteredPatients() | paginate: { itemsPerPage: 6, currentPage: currentPage }; track $index) {
+          <div class="col-12 col-sm-6 col-lg-4 mb-4"> <!-- Adjust column size for different screen sizes -->
+              <div class="card h-100"> <!-- Ensure card height is consistent -->
+                  <div class="card-body d-flex flex-column">
+                      <div class="dropdown d-flex justify-content-end">
+                          <a class="text-muted dropdown-toggle font-size-16" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
+                          <div class="dropdown-menu dropdown-menu-end">
+                              <a class="dropdown-item" [attr.data-bs-target]="'#editModal' + patient.patientId" data-bs-toggle="modal">تعديل</a>
+                              <a class="dropdown-item text-danger" [attr.data-bs-target]="'#deleteModal' + patient.patientId" data-bs-toggle="modal">حذف</a>
+                          </div>
+                      </div>
+                      <div class="d-flex align-items-center">
+                          <div>
+                              @if(patient.gender == 0) {
+                                  <img src="./assets/images/male.png" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                              } @else if(patient.gender == 1) {
+                                  <img src="./assets/images/female.png" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                              }
+                          </div>
+                          <div class="flex-1 ms-3">
+                              <h5 class="font-size-16 mb-1">{{patient.name}}</h5>
+                          </div>
+                      </div>
+                      <hr>
+                      <div class="mt-3 pt-1">
+                          <h5>العمر : {{patient.age}}</h5>
+                          <h5>رقم الهاتف <i class="fa-solid fa-phone"></i> : {{patient.phoneNumber}}</h5>
+                          <h5>العنوان <i class="fa-solid fa-location-dot"></i> : {{patient.address}}</h5>
+                      </div>
+                      <div class="d-flex gap-2 pt-4 mt-auto"> <!-- Ensures buttons are at the bottom -->
+                          <button type="button" class="btn btn-secondary btn-sm w-50" data-bs-toggle="modal" [attr.data-bs-target]="'#bookingModal' + patient.patientId">حجز</button>
+                          <button type="button" class="btn btn-primary btn-sm w-50" [attr.data-bs-target]="'#detailsModal' + patient.patientId" data-bs-toggle="modal">تفاصيل</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Details Modal -->
+          <div class="modal fade" [id]="'detailsModal' + patient.patientId" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          @if(patient.gender == 0) {
+                              <i class="fa-solid fa-mars fs-2" style="color: #1060ea;"></i>                        
+                          } @else if(patient.gender == 1) {
+                              <i class="fa-solid fa-venus fs-2" style="color: #FF1744;"></i>
+                          }
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <h5 class="modal-title ms-3" id="detailsModalLabel">تفاصيل المريض: {{patient.name}}</h5>
+                      <div class="modal-body">
+                          <p><strong>العمر:</strong> {{patient.age}}</p>
+                          <p><strong>رقم الهاتف:</strong> {{patient.phoneNumber}}</p>
+                          <p><strong>العنوان:</strong> {{patient.address}}</p>
+                          <hr>
+                          <div>
+                              <p><strong>ارتفاع ضغط الدم :</strong> {{patient.hypertension ? 'نعم' : 'لا'}}</p>
+                              <p><strong>مرض السكري :</strong> {{patient.diabetes ? 'نعم' : 'لا'}}</p>
+                              <p><strong>آلام المعدة:</strong> {{patient.stomachAche ? 'نعم' : 'لا'}}</p>
+                              <p><strong>أمراض اللثة :</strong> {{patient.periodontalDisease ? 'نعم' : 'لا'}}</p>
+                              @if(patient.gender==1){
+                                  <p><strong>حامل :</strong> {{patient.isPregnant ? 'نعم' : 'لا'}}</p>
+                                  <p><strong>مرضعة :</strong> {{patient.isBreastfeeding ? 'نعم' : 'لا'}}</p>
+                              }
+                              <p><strong>مدخن :</strong> {{patient.isSmoking ? 'نعم' : 'لا'}}</p>
+                              <p><strong>أمراض الكلى:</strong> {{patient.kidneyDiseases ? 'نعم' : 'لا'}}</p>
+                              <p><strong>أمراض القلب:</strong> {{patient.heartDiseases ? 'نعم' : 'لا'}}</p>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">إغلاق</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Edit Modal -->
+          <div class="modal fade" [id]="'editModal' + patient.patientId" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg"> <!-- Use modal-lg for larger screen display -->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="editModalLabel">تعديل بيانات المريض</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form  (ngSubmit)="onEditPatient(patient.patientId)">
+                              <!-- Name Field -->
+                              <div class="mb-3">
+                                  <label for="name" class="form-label">الأسم</label>
+                                  <input type="text" class="form-control" [(ngModel)]="patient.name" name="name" required>
+                              </div>
+
+                              <div class="mb-3">
+                                  <label for="age" class="form-label">العمر</label>
+                                  <input type="number" #age="ngModel" class="form-control" [(ngModel)]="patient.age" name="age" required min="1" max="100" style="text-align: right;"
+                                  [ngClass]="{'is-invalid': age.invalid && age.touched}" />
+
+                                  
+                                  <div *ngIf="patient.age < 1 || patient.age > 100" class="invalid-feedback">
+                                      ادخل العمر بشكل صحيح
+                                  </div>
+                              </div>
+
+                              <!-- Phone Number Field with Validation -->
+                              <div class="mb-3">
+                               <label for="phoneNumber" class="form-label">رقم الهاتف</label>
+                               <input 
+                               type="text" 
+                                class="form-control" 
+                               [(ngModel)]="patient.phoneNumber" 
+                                name="phoneNumber" 
+                                required
+                                pattern="^01[0125][0-9]{8}$" 
+                                  #phoneNumber="ngModel"
+                               [ngClass]="{'is-invalid': phoneNumber.invalid && phoneNumber.touched}">
+                              <!-- Validation Message -->
+                              <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="invalid-feedback">
+                                 يجب إدخال رقم هاتف مصري صالح
+                              </div>
+                              </div>
+
+                              <!-- Address Field -->
+                              <div class="mb-3">
+                                  <label for="address" class="form-label">العنوان</label>
+                                  <input type="text" class="form-control" [(ngModel)]="patient.address" name="address" required>
+                              </div>
+
+                              <!-- Gender Radio Buttons -->
+                              <div class="mb-3">
+                                  <label class="form-label">الجنس</label>
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="radio" [(ngModel)]="patient.gender" [value]="0" name="gender" id="male{{patient.patientId}}" required>
+                                      <label class="form-check-label" for="male{{patient.patientId}}">
+                                          ذكر
+                                      </label>
+                                  </div>
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="radio" [(ngModel)]="patient.gender" [value]="1" name="gender" id="female{{patient.patientId}}" required>
+                                      <label class="form-check-label" for="female{{patient.patientId}}">
+                                          أنثى
+                                      </label>
+                                  </div>
+                              </div>
+                              <hr>
+                              <!-- Boolean Fields as Checkboxes -->
+                              <h3 class="mt-1">التاريخ الطبي:</h3>
+                              <div class="medical-history mt-4">
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.hypertension" name="hypertension" id="hypertension{{patient.patientId}}">
+                                      <label class="form-check-label" for="hypertension{{patient.patientId}}">ارتفاع ضغط الدم</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.diabetes" name="diabetes" id="diabetes{{patient.patientId}}">
+                                      <label class="form-check-label" for="diabetes{{patient.patientId}}">مرض السكري</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.stomachAche" name="stomachAche" id="stomachAche{{patient.patientId}}">
+                                      <label class="form-check-label" for="stomachAche{{patient.patientId}}">آلام المعدة</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.periodontalDisease" name="periodontalDisease" id="periodontalDisease{{patient.patientId}}">
+                                      <label class="form-check-label" for="periodontalDisease{{patient.patientId}}">أمراض اللثة</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.isPregnant" name="isPregnant" id="isPregnant{{patient.patientId}}">
+                                      <label class="form-check-label" for="isPregnant{{patient.patientId}}">حامل</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.isBreastfeeding" name="isBreastfeeding" id="isBreastfeeding{{patient.patientId}}">
+                                      <label class="form-check-label" for="isBreastfeeding{{patient.patientId}}">مرضعة</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.isSmoking" name="isSmoking" id="isSmoking{{patient.patientId}}">
+                                      <label class="form-check-label" for="isSmoking{{patient.patientId}}">مدخن</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.kidneyDiseases" name="kidneyDiseases" id="kidneyDiseases{{patient.patientId}}">
+                                      <label class="form-check-label" for="kidneyDiseases{{patient.patientId}}">أمراض الكلى</label>
+                                  </div>
+
+                                  <div class="form-check mb-2">
+                                      <input class="form-check-input" type="checkbox" [(ngModel)]="patient.heartDiseases" name="heartDiseases" id="heartDiseases{{patient.patientId}}">
+                                      <label class="form-check-label" for="heartDiseases{{patient.patientId}}">أمراض القلب</label>
+                                  </div>
+                              </div>
+                              <hr>
+                              <!-- Submit Button -->
+                              <button type="submit" class="btn btn-primary" [disabled]="phoneNumber.invalid" data-bs-dismiss="modal">
+                                  حفظ التعديلات
+                              </button>
+                            </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Delete Confirmation Modal -->
+          <div class="modal fade" [id]="'deleteModal' + patient.patientId" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <p>هل أنت متأكد أنك تريد حذف المريض : {{patient.name}}؟</p>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                          <button type="button" class="btn btn-danger" (click)="onDeletePatient(patient.patientId)" data-bs-dismiss="modal">حذف</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- bookModel -->
+          <div class="modal fade" [id]="'bookingModal' + patient.patientId" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">حجز موعد للمريض: {{patient.name}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="rtl-container">
+                      <div class="booking-container">
+                        <div class="booking-card">
+                          <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit(patient.patientId)">
+                            <div class="form-group">
+                              <label for="doctor">اختر الطبيب</label>
+                              <select id="doctor" class="form-select" formControlName="doctor" (change)="onDoctorSelect()">
+                                <option value="">اختر طبيب</option>
+                                <option *ngFor="let doctor of doctors" [value]="doctor.doctorId">
+                                  {{doctor.name}}
+                                </option>
+                              </select>
+                              <div class="validation-error" 
+                                   *ngIf="appointmentForm.get('doctor')?.touched && appointmentForm.get('doctor')?.errors?.['required']">
+                                يرجى اختيار الطبيب
+                              </div>
+                            </div>
+            
+                            <div class="form-group">
+                              <label for="branch">اختر الفرع</label>
+                              <select id="branch" class="form-select" formControlName="branch" (change)="onBranchSelect()">
+                                <option value="">اختر فرع</option>
+                                <option *ngFor="let branch of branches" [value]="branch.branchId">
+                                  {{ getBranchLabel(branch.branchName) }}
+                                </option>
+                              </select>
+                              <div class="validation-error" 
+                                   *ngIf="appointmentForm.get('branch')?.touched && appointmentForm.get('branch')?.errors?.['required']">
+                                يرجى اختيار الفرع
+                              </div>
+                            </div>
+            
+                            <div class="form-group">
+                              <label for="type">نوع الموعد</label>
+                              <select id="type" class="form-select" formControlName="type">
+                                <option value="">اختر نوع الموعد</option>
+                                <option *ngFor="let type of appointmentTypes" [value]="type.id">
+                                  {{type.name}}
+                                </option>
+                              </select>
+                              <div class="validation-error" 
+                                   *ngIf="appointmentForm.get('type')?.touched && appointmentForm.get('type')?.errors">
+                                <span *ngIf="appointmentForm.get('type')?.errors?.['required']">
+                                  يرجى اختيار نوع الموعد
+                                </span>
+                              </div>
+                            </div>
+            
+                            <div class="form-group">
+                              <label for="date">اختر التاريخ</label>
+                              <mat-form-field style="width: 100%;">
+                                <input matInput [matDatepicker]="picker" formControlName="date"
+                                       [matDatepickerFilter]="dateFilter" (dateChange)="onDateSelect($event)" 
+                                       placeholder="اختر تاريخ">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                              </mat-form-field>
+                              <div class="validation-error" 
+                                   *ngIf="appointmentForm.get('date')?.touched && appointmentForm.get('date')?.errors?.['required']">
+                                يرجى اختيار التاريخ
+                              </div>
+                            </div>
+            
+                            <div class="form-group">
+                              <label>وقت الموعد</label>
+                              <div class="time-slots">
+                                <button type="button" *ngFor="let slot of timeSlots"
+                                        class="time-slot-btn"
+                                        [class.active]="slot.isSelected"
+                                        [disabled]="slot.isDisabled"
+                                        (click)="onTimeSelect(slot.time)">
+                                  {{slot.time}}
+                                </button>
+                              </div>
+                              <div class="validation-error" 
+                                   *ngIf="appointmentForm.get('time')?.touched && appointmentForm.get('time')?.errors?.['required']">
+                                يرجى اختيار وقت الموعد
+                              </div>
+                            </div>
+            
+                            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+            
+                            <button type="submit" class="submit-btn btn btn-primary w-100" 
+                                    [disabled]="!appointmentForm.valid">
+                              تأكيد الحجز
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      }
+      <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body text-center">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                <h4 class="mt-3" id="successModalLabel">تم حجز الموعد بنجاح</h4>
+                <p class="mb-4">شكراً لك على حجز موعدك. نتطلع إلى رؤيتك قريباً!</p>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">حسناً</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="pagination-info d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <p class="patient-count mb-4 mb-md-0 h4">عدد المرضى: {{ filteredPatients().length }}</p>
+          <pagination-controls 
+              class="pagination-controls-responsive"
+              (pageChange)="currentPage = $event" 
+              [directionLinks]="true" 
+              [autoHide]="true" 
+              [previousLabel]="'السابق'" 
+              [nextLabel]="'التالي'">
+          </pagination-controls>
+      </div>
+      <div *ngIf="showSuccessModal" class="success-modal-overlay">
+          <div class="success-modal">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h4 class="success-title">تم حجز الموعد بنجاح</h4>
+            <p class="success-message">شكراً لك على حجز موعدك. نتطلع إلى رؤيتك قريباً!</p>
+            <button class="success-button" (click)="closeSuccessModal()">حسناً</button>
+          </div>
+        </div>
+      
+  </div>
+</div>
+
+</div>

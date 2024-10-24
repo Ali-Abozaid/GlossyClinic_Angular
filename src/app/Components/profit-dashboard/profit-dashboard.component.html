@@ -1,0 +1,237 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<div class="container">
+  <div class="filter-container styled-filter">
+    <label for="yearFilter">تصفية حسب السنة:</label>
+    <select [(ngModel)]="selectedYear" (change)="loadFinancialData()">
+      <option *ngFor="let year of availableYears" [value]="year">
+        {{ year }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="noDataMessage" class="alert alert-warning styled-alert">
+    {{ noDataMessage }}
+  </div>
+  <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>الشهر</th>
+        <th>الدخل</th>
+        <th>المصاريف</th>
+        <th>صافي الربح</th>
+        <th>تفاصيل المصاريف</th>
+        <th>تقرير تفصيل المصاريف</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of financialData; let i = index">
+        <td>{{ data.month }}</td>
+        <td>{{ data.profit | currency : "EGP " }}</td>
+        <td>{{ data.outgoing | currency : "EGP " }}</td>
+        <td>{{ data.pureProfit | currency : "EGP " }}</td>
+        <td>
+          <button
+            *ngIf="data.month !== 'الاجمالي'"
+            class="btn btn-info"
+            (click)="showOutgoingDetails(i)"
+          >
+            تفاصيل  
+          </button>
+        </td>
+        <td>
+          <button  *ngIf="data.month !== 'الاجمالي'"  class="btn btn-info" (click)="downloadOutgoingDetails(i)"><i class="fas fa-file-excel"></i>     تحميل</button> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+ <div class="button-container">
+  <button class="btn btn-primary btn-large" (click)="downloadAllData()">
+    <i class="fas fa-file-excel"></i>  تحميل التقرير السنوي    
+  </button>
+  <button class="btn btn-primary btn-large" (click)="openAddOutgoingModal()">
+    <i class="fas fa-money-bill-wave"></i> إضافة مصاريف جديدة
+  </button>
+</div>
+
+
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    *ngIf="showModal && !isAddingNewOutgoing"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">تفاصيل المصاريف لشهر: {{ selectedMonth }}</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>السبب</th>
+                <th>السعر</th>
+                <th>التاريخ</th>
+                <th>اسم الدكتور</th>
+                <th>اسم الفرع</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let outgoing of selectedOutgoings">
+                <td>{{ outgoing.nameOfOutgoings }}</td>
+                <td>{{ outgoing.cost | currency : "EGP " }}</td>
+                <td>{{ outgoing.date | date : "yyyy-MM-dd" }}</td>
+                <td>{{ outgoing.doctorName }}</td>
+                <td>{{ outgoing.branchName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            إغلاق
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    *ngIf="showModal && isAddingNewOutgoing"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">إضافة مصاريف جديدة</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form (ngSubmit)="submitNewOutgoing()" #outgoingForm="ngForm" novalidate>
+            <div class="form-group">
+              <label for="nameOfOutgoings">اسم المصاريف:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nameOfOutgoings"
+                [(ngModel)]="newOutgoing.nameOfOutgoings"
+                name="nameOfOutgoings"
+                required
+                #nameOfOutgoings="ngModel"
+                [class.is-invalid]="nameOfOutgoings.invalid && nameOfOutgoings.touched"
+              />
+              <div *ngIf="nameOfOutgoings.invalid && nameOfOutgoings.touched" class="invalid-feedback">
+                اسم المصاريف مطلوب.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cost">المبلغ:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="cost"
+                [(ngModel)]="newOutgoing.cost"
+                name="cost"
+                required
+                min="1"
+                #cost="ngModel"
+                [class.is-invalid]="(cost.invalid || cost.value <= 0) && cost.touched"
+              />
+              <div *ngIf="cost.errors?.['required'] && cost.touched" class="invalid-feedback">
+                المبلغ مطلوب.
+              </div>
+              <div *ngIf="cost.value <= 0 && cost.touched" class="invalid-feedback">
+                المبلغ يجب أن يكون أكبر من الصفر.
+              </div>
+            </div>
+        
+            <!-- Date -->
+            <div class="form-group">
+              <label for="date">التاريخ:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                [(ngModel)]="newOutgoing.date"
+                name="date"
+                required
+                #date="ngModel"
+                [class.is-invalid]="date.invalid && date.touched"
+              />
+              <div *ngIf="date.invalid && date.touched" class="invalid-feedback">
+                التاريخ مطلوب.
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label for="doctorSelect"> الطبيب:</label>
+              <select
+                class="form-control"
+                id="doctorSelect"
+                (change)="onDoctorChange($event)"
+              >
+                <option value="" disabled selected>اختر طبيب</option>
+                <option *ngFor="let doctor of filterDoctors()" [value]="doctor.id">
+                  {{ doctor.name }}
+                </option>
+              </select>
+            </div>
+
+
+<div class="form-group">
+  <label for="branchSelect"> الفرع:</label>
+  <select
+    class="form-control"
+    id="branchSelect"
+    (change)="onBranchChange($event)"
+  >
+    <option value="" disabled selected>اختر فرع</option>
+    <option *ngFor="let branch of filterBranches()" [value]="branch.id">
+      {{ branch.name }}
+    </option>
+  </select>
+</div>
+
+
+        
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="outgoingForm.invalid || cost.value <= 0"
+            >
+              إضافة
+            </button>
+          </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          id="one"
+          >
+            إغلاق
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

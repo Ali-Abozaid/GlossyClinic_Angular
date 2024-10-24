@@ -1,0 +1,93 @@
+<div class="container contact-page">
+  <div class="text-center page-title">
+    <h1 class="fw-bold">اتصل بنا</h1>
+  </div>
+
+  <div *ngFor="let item of branches; let i = index" class="branch-box w-75 mx-auto text-black px-5">
+    <div class="row">
+      <!-- Contact Information Section -->
+      <div class="col-lg-6">
+        <div class="text-right mt-5">
+          <h2>{{ item.branchName }}</h2>
+          <div class="line mb-5"></div>
+
+          <!-- Working Hours -->
+          <div class="contact-item mb-4">
+            <i class="fas fa-calendar-alt contact-icon"></i>
+            <div class="contact-content">
+              <h3 class="fs-4 mb-2">مواعيد العمل</h3>
+              <p class="mb-0">الأثنين - الجمعة : 12 مساءً إلى 10 مساءً الأحد: مغلق</p>
+            </div>
+          </div>
+
+          <!-- Phone Numbers -->
+          <div class="contact-item mb-4">
+            <i class="fas fa-phone-alt contact-icon"></i>
+            <div class="contact-content">
+              <h3 class="fs-4 mb-2">أرقام الهاتف</h3>
+              <div>
+                <ng-container *ngFor="let phone of item.phoneNumbers; let i = index">
+                  <p class="mb-1">{{ phone }}<ng-container *ngIf="i < item.phoneNumbers.length - 1"></ng-container></p>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="contact-item mb-4">
+            <i class="fas fa-map-marker-alt contact-icon"></i>
+            <div class="contact-content">
+              <h3 class="fs-4 mb-2">العنوان</h3>
+              <p class="mb-0">
+                <a [href]="item.branchName === 'qussia' ? 'https://maps.app.goo.gl/pKNHszV8pfXVckvB6' : 'https://maps.app.goo.gl/8e8JV5vLYEMzgpic7'"
+                   target="_blank">
+                  {{ item.branchLocation }}
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Facebook -->
+          <div class="contact-item mb-4">
+            <i class="fab fa-facebook contact-icon"></i>
+            <div class="contact-content">
+              <h3 class="fs-4 mb-2">تابعنا على فيسبوك</h3>
+              <a href="https://www.facebook.com/profile.php?id=100064221274360&mibextid=ZbWKwL"
+                 target="_blank"
+                 class="social-link">
+                صفحتنا على فيسبوك
+              </a>
+            </div>
+          </div>
+
+          <!-- Booking Button -->
+          <div class="mt-4">
+            <button class="btn btn-booking" routerLink="/book">احجز الآن</button>
+          </div>
+        </div>
+      </div>
+
+
+  <!-- Gallery Container -->
+  <div class="gallery-container flex-shrink-0 mt-5">
+    <gallery class="myGallery" [id]="item.branchName" [items]="getGalleryItems(item.branchName)"></gallery>
+  </div>
+
+   <!-- Map Section -->
+    <div class="map-section mt-5">
+      <h3 class="text-center mb-4">فرع {{ item.branchName }} على الخريطة</h3>
+      <div class="map-container">
+        <iframe
+          [src]="sanitizeMapUrl(getMapUrl(item.branchName))"
+          width="100%"
+          height="450"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+
+</div>
+

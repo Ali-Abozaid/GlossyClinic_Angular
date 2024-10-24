@@ -1,0 +1,63 @@
+
+<!-- Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-start w-100 w-md-25 shadow" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title" id="offcanvasTitle">القائمة</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="nav-item">
+                <a routerLink="DashboardGloosy/home" routerLinkActive="active" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1">الصفحة الرئيسية</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="DashboardGloosy/appoinment" routerLinkActive="active" class="nav-link text-truncate">
+                    <i class="fs-5 bi-table"></i><span class="ms-1">المواعيد</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="DashboardGloosy/patient" routerLinkActive="active" href="#" class="nav-link text-truncate">
+                    <i class="fs-5 bi-people"></i><span class="ms-1">المرضي</span> 
+                </a>
+            </li>
+            <li>
+                <a  routerLink="DashboardGloosy/book" routerLinkActive="active" data-bs-toggle="collapse" class="nav-link text-truncate">
+                    <i class="fa-regular fa-calendar-plus"></i><span class="ms-1"> حجز موعد جديد</span> 
+                </a>
+            </li>
+            <li>
+                <a  routerLink="DashboardGloosy/profit-dashboard" routerLinkActive="active" data-bs-toggle="collapse" class="nav-link text-truncate">
+                    <i class="fa-solid fa-sack-dollar"></i><span class="ms-1">   المصروفات والارباح</span> 
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-gears"></i><span class="ms-1"> الإعدادات</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                    <li><a class="dropdown-item" routerLink="DashboardGloosy/update">تغير كلمة السر للفروع</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a  routerLink="/DashboardGloosy/login" class="dropdown-item" (click)="logOutUser()">تسجيل خروج</a></li>
+                </ul>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" dir="ltr">
+        <a class="navbar-brand ms-3" routerLink="home" routerLinkActive="active">
+            <img src="./assets/images/EnhancedLogo.png" width="125" height="50" class="d-inline-block" alt="">
+          </a>       
+        <div class="col me-auto">
+            <img src="./assets/images/male.png" alt="" class="avatar-md rounded-circle img-thumbnail" />
+            <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+             <i class="fa-solid fa-bars fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            </button>
+       </div>
+        
+      
+      </nav>
+

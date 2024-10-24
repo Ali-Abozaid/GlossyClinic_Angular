@@ -1,0 +1,278 @@
+<div *ngIf="!isPatientRegistered" class="container mt-5 mb-5 patient">
+    <div class="card ">
+        <div class="row g-0 ">
+            <div class="col-lg-12 mb-3">
+                <div class="form-section pb-0">
+                    <h2 class="text-center mb-4">تسجيل مريض جديد</h2>
+                    <form [formGroup]="PatientForm" (ngSubmit)="onSubmit()">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-6 mb-1 ">
+                                <label for="name">الاسم</label>
+                                <input type="text" id="name" class="form-control" formControlName="name" required placeholder="ادخل الاسم" style="text-align: right;">
+                                <div *ngIf="PatientForm.get('name')?.invalid && (PatientForm.get('name')?.dirty || PatientForm.get('name')?.touched)">
+                                    <small class="text-danger" *ngIf="PatientForm.get('name')?.errors?.['required']">الاسم مطلوب</small>
+                                    <small class="text-danger" *ngIf="PatientForm.get('name')?.errors?.['pattern']">الاسم يجب أن يحتوي على أحرف فقط</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-1">
+                                <label for="age">العمر</label>
+                                <input type="number" id="age" class="form-control" formControlName="age" required placeholder="ادخل العمر" style="text-align: right;" min="1">
+                                <div *ngIf="PatientForm.get('age')?.invalid && (PatientForm.get('age')?.dirty || PatientForm.get('age')?.touched)">
+                                    <small class="text-danger" *ngIf="PatientForm.get('age')?.errors?.['required']">العمر مطلوب </small>
+                                    <small class="text-danger" *ngIf="PatientForm.get('age')?.errors?.['min']">
+                                       ادخل العمر بشكل صحيح
+                                      </small>
+                                </div>
+                            </div>
+                           
+                          
+                        </div>
+                    
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phoneNumber">رقم الهاتف</label>
+                                <input type="tel" id="phoneNumber" class="form-control" formControlName="phoneNumber" required placeholder="01xxxxxxxxx" style="text-align: right;">
+                                <div *ngIf="PatientForm.get('phoneNumber')?.invalid && (PatientForm.get('phoneNumber')?.dirty || PatientForm.get('phoneNumber')?.touched)">
+                                    <small class="text-danger" *ngIf="PatientForm.get('phoneNumber')?.errors?.['required']">رقم الهاتف مطلوب</small>
+                                    <small class="text-danger" *ngIf="PatientForm.get('phoneNumber')?.errors?.['pattern']">صيغة رقم الهاتف غير صحيحة</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="gender">النوع</label>
+                                <select id="gender" class="form-select" formControlName="gender" required>
+                                    <option value="">اختر النوع</option>
+                                    <option value="0">ذكر</option>
+                                    <option value="1">أنثى</option>
+                                </select>
+                                <div *ngIf="PatientForm.get('gender')?.invalid && (PatientForm.get('gender')?.dirty || PatientForm.get('gender')?.touched)">
+                                    <small class="text-danger" *ngIf="PatientForm.get('gender')?.errors?.['required']">الجنس مطلوب</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">العنوان</label>
+                            <input type="text" id="address" class="form-control" formControlName="address" required placeholder="ادخل العنوان" style="text-align: right;">
+                            <div *ngIf="PatientForm.get('address')?.invalid && (PatientForm.get('address')?.dirty || PatientForm.get('address')?.touched)">
+                                <small class="text-danger" *ngIf="PatientForm.get('address')?.errors?.['required']">العنوان مطلوب</small>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-4 mb-3">التاريخ الطبي</h3>
+                        <div class="medical-history">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="hypertension" formControlName="hypertension">
+                                <label class="form-check-label" for="hypertension">ارتفاع ضغط الدم</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="diabetes" formControlName="diabetes">
+                                <label class="form-check-label" for="diabetes">مرض السكري</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="stomachAche" formControlName="stomachAche">
+                                <label class="form-check-label" for="stomachAche">آلام المعدة</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="periodontalDisease" formControlName="periodontalDisease">
+                                <label class="form-check-label" for="periodontalDisease">أمراض اللثة</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isPregnant" formControlName="isPregnant">
+                                <label class="form-check-label" for="isPregnant">حامل</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isBreastfeeding" formControlName="isBreastfeeding">
+                                <label class="form-check-label" for="isBreastfeeding">مرضعة</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isSmoking" formControlName="isSmoking">
+                                <label class="form-check-label" for="isSmoking">مدخن</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="kidneyDiseases" formControlName="kidneyDiseases">
+                                <label class="form-check-label" for="kidneyDiseases">أمراض الكلى</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="heartDiseases" formControlName="heartDiseases">
+                                <label class="form-check-label" for="heartDiseases">أمراض القلب</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-4" [disabled]="PatientForm.invalid || loading">تسجيل</button>
+                        <p *ngIf="successMessage" class="text-success mt-3">{{ successMessage }}</p>
+                        <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf="isPatientRegistered" class="container mt-5 book">
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8 col-md-10 col-sm-12 bg-main shadow rounded rounded-5 p-4 mt-5">
+        <h2 class="text-center mb-4 fw-bold">حجز ميعاد</h2>
+        <form [formGroup]="bookForm" (ngSubmit)="handelBook()">
+          <div class="row">
+            <!-- Doctor Selection -->
+            <div class="col-md-6 mb-3">
+              <label for="doctor" class="form-label">اسم الدكتور</label>
+              <select
+                formControlName="doctorName"
+                id="doctor"
+                class="form-select"
+                required
+              >
+                <option value="" disabled selected>اختر الدكتور</option>
+                <option *ngFor="let doctor of doctors; let i = index" [value]="doctor.name"  class="fs-5">{{ doctor.name }}</option>
+              </select>
+              <div
+                *ngIf="bookForm.get('doctorName')?.errors && bookForm.get('doctorName')?.touched"
+                class="text-danger small mt-1"
+              >
+                <p *ngIf="bookForm.get('doctorName')?.hasError('required')">اسم الدكتور مطلوب</p>
+              </div>
+            </div>
+  
+            <!-- Branch Selection -->
+            <div class="col-md-6 mb-3">
+              <label for="branch" class="form-label">اسم الفرع</label>
+              <select
+                formControlName="branchName"
+                id="branch"
+                class="form-select"
+                required
+              >
+                <option value="" disabled selected>اختر الفرع</option>
+                <option *ngFor="let branch of branches; let i = index" [value]="branch.branchName" class="fs-5">{{ branch.branchName }}</option>
+              </select>
+              <div
+                *ngIf="bookForm.get('branchName')?.errors && bookForm.get('branchName')?.touched"
+                class="text-danger small mt-1"
+              >
+                <p *ngIf="bookForm.get('branchName')?.hasError('required')">اسم الفرع مطلوب</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <!-- Visit Type Selection -->
+            <div class="col-md-6 mb-3">
+              <label for="visit" class="form-label">نوع الزيارة</label>
+              <select
+                id="visit"
+                class="form-select"
+                formControlName="VisitType"
+                required
+              >
+                <option value="" disabled selected>اختر نوع الزيارة</option>
+                <option value="0"  class="fs-5">كشف</option>
+                <option value="1"  class="fs-5">اعاده</option>
+                <option value="2"  class="fs-5">تجميل</option>
+                <option value="3"  class="fs-5">زراعه</option>
+                <option value="4"  class="fs-5">علاج الجذور وحشو العصب</option>
+                <option value="5"  class="fs-5">حشو عادي</option>
+                <option value="6"  class="fs-5">تقويم</option>
+                <option value="7"  class="fs-5">امراض و تجميل اللثه</option>
+                <option value="8"  class="fs-5">جراحه الوجه و الفكين</option>
+              </select>
+              <div
+                *ngIf="bookForm.get('VisitType')?.errors && bookForm.get('VisitType')?.touched"
+                class="text-danger small mt-1"
+              >
+                <p *ngIf="bookForm.get('VisitType')?.hasError('required')">ادخل نوع الزيارة</p>
+              </div>
+            </div>
+  
+            <!-- Date Picker -->
+            <div class="col-md-6 mb-3">
+              
+            <label for="date" class="form-label">التاريخ</label>
+              <input
+                formControlName="DateVisit"
+                matInput
+                [matDatepicker]="picker"
+                class="form-control border-0 py-2"
+                placeholder="اختر التاريخ"
+                [matDatepickerFilter]="filterDates"
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker" class="custom"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <div
+                *ngIf="bookForm.get('DateVisit')?.errors && bookForm.get('DateVisit')?.touched"
+                class="text-danger small mt-2"
+              >
+                <p *ngIf="bookForm.get('DateVisit')?.hasError('required')">ادخل تاريخ الزيارة</p>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Time Selection -->
+          <div class="mb-3">
+            <label for="time" class="form-label">الوقت</label>
+            <select
+              formControlName="TimeVisit"
+              id="time"
+              class="form-select"
+              required
+            >
+              <option value="" disabled selected>اختر الوقت</option>
+              @for (timeSlot of timeSlots; track $index) {
+                <option  [value]="timeSlot">{{ timeSlot }}</option>
+                
+              }
+              @if(timeSlots.length==0){
+                <option value="" disabled  class="text-danger fs-5">لا توجد مواعيد متاحة في هذا اليوم</option>
+              }
+            </select>
+            <div
+              *ngIf="bookForm.get('TimeVisit')?.errors && bookForm.get('TimeVisit')?.touched"
+              class="text-danger small mt-1"
+            >
+              <p *ngIf="bookForm.get('TimeVisit')?.hasError('required')">ادخل وقت الزيارة</p>
+            </div>
+          </div>
+  
+          <!-- Submit Button -->
+          <button
+            [disabled]="bookForm.invalid"
+            type="submit"
+            class="btn btn-primary w-100 mt-4"
+          >
+            حجز
+            <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+</div>
+  
+
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}"> 
+
+  <div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+        <div class="modal-header">
+          <div class="mx-auto">
+            <img src="./assets/images/EnhancedLogo.png" width="200" height="100" >
+
+          </div>
+    </div>
+    <div class="modal-body text-center">
+      <h4 class="h5">
+          تم حجز الميعاد
+        <i class="fas fa-check-circle" style="color: green; margin-right:4px;"></i>
+      </h4>	
+      <button class="btn btn-danger mt-3" data-dismiss="modal" (click)="closePopup()">إغلاق</button>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,289 @@
+<div class="rtl-container">
+  <div class="dashboard-container p-4">
+    <div class="dashboard-header mb-4">
+      <h1 class="display-6 fw-bold text-primary">المواعيد</h1>
+    </div>
+
+
+    <div class="search-section bg-white rounded-3 p-4 mb-4 shadow-sm">
+      <div class="row align-items-center">
+        <div class="col">
+          <div class="input-group">
+            <span class="input-group-text bg-light border-0">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" class="form-control border-0 py-2" placeholder="بحث بالاسم" (input)="onSearch($event)">
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group">
+            <span class="input-group-text bg-light border-0">
+              <i class="bi bi-phone"></i>
+            </span>
+            <input type="text" class="form-control border-0 py-2" placeholder="بحث برقم الهاتف" (input)="onPhoneSearch($event)">
+          </div>
+        </div>
+        <div class="col">
+          <select class="form-select py-2 border-0 bg-light" [(ngModel)]="selectedBranch" (change)="onBranchChange()">
+            <option *ngFor="let option of branchOptions" [value]="option.value">{{ option.label }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <select class="form-select py-2 border-0 bg-light" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+            <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="input-group">
+            <span class="input-group-text bg-light border-0">
+              <i class="bi bi-calendar"></i>
+            </span>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" 
+            class="form-control border-0 py-2" placeholder="اختر التاريخ">
+            <mat-datepicker-toggle matSuffix [for]="picker" class="custom-datepicker-toggle"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-success d-flex align-items-center" (click)="exportToExcel()">
+            <img src="Images/excel.png" alt="Excel" class="me-2" style="width: 50px; height: 50px;">
+            <span>Excel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-section bg-white rounded-3 shadow-sm">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="bg-light">
+            <tr>
+              <th class="border-0 py-3">الصورة</th>
+              <th class="border-0 py-3">اسم المريض</th>
+              <th class="border-0 py-3">العمر</th>
+              <th class="border-0 py-3">التاريخ والوقت</th>
+              <th class="border-0 py-3">تفاصيل الموعد</th>
+              <th class="border-0 py-3">التقارير</th>
+              <th class="border-0 py-3">رقم الجوال</th>
+              <th class="border-0 py-3">التكلفة</th>
+              <th class="border-0 py-3">النوع</th>
+              <th class="border-0 py-3">الفرع</th>
+              <th class="border-0 py-3">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of filteredAppointments">
+              <td class="py-3">
+                <img [src]="getPatientImage(appointment.patientGender)" alt="المريض" 
+                     class="rounded-circle border" width="40" height="40">
+              </td>
+              <td class="py-3">{{ appointment.patientName }}</td>
+              <td class="py-3">{{ appointment.patientAge }}</td>
+              <td class="py-3">
+                <time>{{ appointment.date | date:'MM/dd/yyyy' }}، {{ appointment.formattedTime }}</time>
+              </td>
+              <td class="py-3 reports-cell">{{ appointment.StatusDescription}}</td>
+              <td class="py-3 reports-cell">{{ appointment.reports}}</td>
+              <td class="py-3">{{ appointment.patientPhoneNumber}}</td>
+              <td class="py-3">{{ appointment.cost}}</td>
+              <td class="py-3">{{ appointment.typeDescription}}</td>
+              <td class="py-3">{{ getBranchLabel(appointment.branch) }}</td>
+              <td class="py-3">
+                <div class="dropdown">
+                  <button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" (click)="openEditModal(appointment)" style="cursor: pointer;">تعديل</a></li>
+                    <li><a class="dropdown-item text-danger" (click)="deleteAppointment(appointment)"style="cursor: pointer;">حذف</a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-section border-top p-3">
+        <div class="row align-items-center">
+          <div class="col-md-4">
+            <div class="d-flex align-items-center">
+              <label class="me-2 text-muted">عدد العناصر لكل صفحة:</label>
+              <select class="form-select form-select-sm w-auto" style="cursor: pointer;" (change)="onItemsPerPageChange($event)">
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="50">50</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <span class="text-muted">
+              {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage * pageSize > totalItems ? totalItems : currentPage * pageSize }} من {{ totalItems }}
+            </span>
+          </div>
+          <div class="col-md-4">
+            <nav aria-label="Page navigation" class="float-end">
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item" style="cursor: pointer;" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="onPageChange(currentPage - 1)" aria-label="Previous">
+                    <i class="bi bi-chevron-right"></i>
+                  </a>
+                </li>
+                <li class="page-item" style="cursor: pointer;" [class.disabled]="currentPage * pageSize >= totalItems" >
+                  <a class="page-link" (click)="onPageChange(currentPage + 1)" aria-label="Next">
+                    <i class="bi bi-chevron-left"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div *ngIf="selectedAppointment && selectedAppointment.patientId" class="modal fade show" tabindex="-1" 
+     [ngStyle]="{'display': 'block'}" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close ms-0 me-auto" (click)="closeModal()"></button>
+        <h5 class="modal-title">تعديل موعد {{ selectedAppointment.patientName }}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="appointment-details bg-light rounded-3 p-3">
+              <h6 class="fw-bold mb-3">تفاصيل الموعد</h6>
+              <p class="mb-2">
+                <i class="bi bi-calendar me-2"></i>
+                التاريخ: {{ selectedAppointment.date | date:'MM/dd/yyyy' }}
+              </p>
+              <p class="mb-3">
+                <i class="bi bi-clock me-2"></i>
+                الوقت: {{ selectedAppointment.formattedTime }}
+              </p>
+              <div class="mb-3">
+                <label for="reportTextarea" class="form-label">
+                  <i class="bi bi-file-text me-2"></i>
+                  التقرير:
+                </label>
+                <textarea class="form-control" id="reportTextarea" rows="4" 
+            [(ngModel)]="selectedAppointment.reports"
+            [disabled]="isSecretary"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="costInput" class="form-label">
+                  <i class="bi bi-wallet-fill"></i>
+                  التكلفة:
+                </label>
+                <input type="number" class="form-control" id="costInput" style="width: 340px;" 
+                       [(ngModel)]="selectedAppointment.cost">
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="attendedCheck" 
+                       [checked]="selectedAppointment.status === 1"
+                       (change)="markAsAttended($event)">
+                       <label class="form-check-label" for="attendedCheck">تم الحضور</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="patient-history bg-light rounded-3 p-3">
+              <div *ngIf="patientHistory">
+                <p class="mb-2">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  <strong>العنوان:</strong> {{ patientHistory.address }}
+                </p>
+                <p class="mb-2">
+                  <i class="bi bi-gender-ambiguous me-2"></i>
+                  <strong>الجنس:</strong> {{ patientHistory.gender === 0 ? 'ذكر' : 'أنثى' }}
+                </p>
+                <p class="mb-3">
+                  <i class="bi bi-telephone me-2"></i>
+                  <strong>الهاتف:</strong> {{ patientHistory.phoneNumber }}
+                </p>
+                <h6 class="fw-bold mb-3">
+                  <i class="bi bi-clipboard2-pulse me-2"></i>
+                  السجل الطبي
+                </h6>
+                  <ul class="list-unstyled mb-0">
+                    <li class="mb-2">
+                      <i [class]="patientHistory.diabetes ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">السكري</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.heartDiseases ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">أمراض القلب</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.hypertension ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">ضغط الدم</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.isBreastfeeding ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">الرضاعة</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.isPregnant ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">الحمل</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.isSmoking ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">التدخين</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.kidneyDiseases ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">أمراض الكلى</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.periodontalDisease ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">أمراض اللثة</span>
+                    </li>
+                    <li class="mb-2">
+                      <i [class]="patientHistory.stomachAche ? 'bi bi-check-circle-fill text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+                      <span class="me-2">آلام المعدة</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-light" (click)="closeModal()">إلغاء</button>
+          <button type="button" class="btn btn-primary" (click)="saveAppointment()">حفظ التغييرات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Success Modal -->
+<div *ngIf="showSuccessModal" class="success-modal-overlay">
+  <div class="success-modal">
+    <i class="fas fa-check-circle success-icon"></i>
+    <h4 class="success-title">تم تحديث بيانات الموعد بنجاح</h4>
+    <button class="success-button" (click)="closeSuccessModal()">حسناً</button>
+  </div>
+</div>
+<!-- Success Modal after Delte-->
+<div *ngIf="showSuccessModalafterdelete" class="success-modal-overlay">
+  <div class="success-modal">
+    <i class="fas fa-check-circle success-icon"></i>
+    <h4 class="success-title">تم حذف هذا الموعد بنجاح</h4>
+    <button class="success-button" (click)="closeSuccessModalDelete()">حسناً</button>
+  </div>
+</div>
+<!-- confim Modal -->
+<div *ngIf="showConfirmModal" class="confirm-modal-overlay">
+  <div class="confirm-modal">
+    <i class="fas fa-question-circle confirm-icon"></i>
+    <h4 class="confirm-title"> هل أنت متأكد من حذف هذا الموعد؟</h4>
+    <p class="modal-subtitle">لا يمكن التراجع عن هذا الإجراء</p>
+    <div class="confirm-buttons">
+      <button class="confirm-button confirm-yes" (click)="confirmDelete()">نعم</button>
+      <button class="confirm-button confirm-no" (click)="cancelDelete()">لا</button>
+    </div>
+  </div>
+</div>

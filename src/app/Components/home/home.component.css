@@ -1,0 +1,591 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.hero-section {
+  background-image: url('../../../assets/images/30.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative; /* Enable positioning for overlapping elements */
+  overflow:hidden;
+}
+
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+    z-index: 1; /* Place it behind the content */
+}
+
+.hero-content {
+    position: relative; /* Position relative for content */
+    z-index: 2; /* Place content above overlay */
+    padding: 60px; /* Some padding for content */
+}
+
+h1 {
+    font-size: 4em; /* Adjust size as needed */
+    margin: 0; /* Remove default margin */
+}
+
+p {
+    font-size: 1.5em; /* Adjust size as needed */
+    margin: 10px 0; /* Spacing between elements */
+}
+.position-relative.d-inline-block.text-primary.text-uppercase {
+  font-size: 150%; /* Adjust the size to your preference */
+  color: #16325B; /* Your desired font color */
+}
+
+.position-relative.d-inline-block.text-primary {
+  font-size: 150%; /* Adjust the size to your preference */
+  color: #16325B; /* Your desired font color */
+}
+
+.cta-button-primary {
+    background-color: #091E3E; /* Button color */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Padding for the button */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.cta-button:hover {
+    background-color: #091E3E; /* Darker color on hover */
+}
+:root {
+  --primary: #091E3E;
+  --secondary: #F57E57;
+  --light: #EEF9FF;
+  --dark: #091E3E;
+  --highlight: #F2D184;
+}
+.cta-button-secondary {
+  background-color: #F57E57; /* Custom color for اتصل بنا button */
+  color: white; /* Button text color */
+  padding: 10px 20px; /* Padding for the button */
+  text-decoration: none; /* Remove underline */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.cta-button-secondary:hover {
+  background-color: #d96345; /* Darker shade on hover */
+}
+
+
+
+
+
+.banner {
+  position: relative; /* Absolute positioning to overlap the hero section */
+  top: -10vh; /* Adjust the position to overlap with the hero section */
+  left: 0;
+  width: 100%;
+  z-index: 2; /* Make sure it appears above the hero section */
+}
+.bg-primary, .bg-secondary {
+  position: relative;
+  z-index: 3; /* Ensure content appears on top of other elements */
+}
+/* Column styles */
+.banner .col-lg-6 {
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Transition for hover effects */
+    margin: 0; /* Remove margin to eliminate space between columns */
+    padding: 0; /* Remove padding if any */
+    border-radius: 8px; /* Round the corners for a softer look */
+    position: relative; /* Establish positioning for z-index */
+    z-index: 1; /* Ensure it sits above the background */
+}
+
+/* Background colors for each column */
+.banner .col-lg-6:nth-child(1) {
+    background-color: #091E3E; /* Primary Blue */
+}
+
+.banner .col-lg-6:nth-child(2) {
+    background-color: #343a40; /* Dark Gray */
+}
+
+.banner .col-lg-6:nth-child(3) {
+    background-color: #6c757d; /* Secondary Gray */
+}
+
+/* Hover effects */
+.banner .col-lg-6:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+/* Text color styles */
+.banner h3, .banner p {
+    transition: color 0.3s ease; /* Transition for text color on hover */
+}
+
+.banner .col-lg-4:hover h3,
+.banner .col-lg-4:hover p {
+    color: #fff; /* Change text color on hover */
+}
+
+/* Overlap effect */
+.banner .col-lg-4 {
+    margin-top: -50px; /* Move the columns upwards for overlap */
+}
+
+/* Optional: add some padding to the container above the banner */
+.container {
+    padding-bottom: 50px; /* Adjust as necessary to create space */
+}
+/* Root Colors */
+:root {
+  --primary: #091E3E;
+  --secondary: #F57E57;
+  --light: #EEF9FF;
+  --dark: #091E3E;
+  --highlight: #F2D184;
+}
+.bg-primary {
+  background-color: #16325B !important; /* Change background color */
+}
+
+/* Content container transitions and colors */
+.content-container {
+  color: var(--dark);
+  transition: color 0.5s ease, transform 0.5s ease;
+}
+
+.content-container:hover {
+  color: var(--dark);
+  transform: translateY(-10px);
+}
+
+/* Title hover effect */
+.section-title h1 {
+  color: var(--dark);
+  transition: color 0.4s ease, letter-spacing 0.4s;
+}
+
+.section-title h1:hover {
+  color: var(--primary);
+  letter-spacing: 2px;
+}
+
+/* Image hover effect */
+.image-container img {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Button styling with hover effect */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary);
+  transform: scale(1.05);
+  border-color: var(--secondary) !important;
+}
+
+.btn-primary:focus {
+  box-shadow: none !important;
+}
+
+/* Highlight hover for lists */
+h5 i {
+  color: var(--primary);
+  transition: color 0.4s ease;
+}
+
+h5:hover i {
+  color: var(--highlight);
+}
+
+/* Smooth hover transition for paragraphs */
+p {
+  transition: color 0.5s ease;
+}
+
+
+/* General styles */
+.twentytwenty-container img {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.service-item {
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease-in-out;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+}
+
+.service-item .service-img-wrapper {
+  transition: transform 0.4s ease;
+  position: relative;
+}
+
+.service-item:hover .service-img-wrapper {
+  transform: scale(1.1);
+}
+
+.service-item .service-text {
+  transition: background-color 0.4s ease;
+}
+
+.service-item:hover .service-text {
+  background-color: #f7f7f7;
+}
+
+.service-text-box {
+  transition: background-color 0.4s ease;
+}
+
+.service-text-box:hover {
+  background-color: #091E3E;
+}
+
+/* Title hover effect */
+.section-title h5 {
+  transition: color 0.4s ease;
+}
+
+.section-title h5:hover {
+  color: #091E3E;
+}
+
+/* Text section color change */
+.service-text-box:hover h3,
+.service-text-box:hover p,
+.service-text-box:hover h2 {
+  color: #fff;
+}
+
+/* Ensure that images maintain a smooth zoom effect */
+.service-img {
+  transition: transform 0.4s ease;
+}
+
+.service-item:hover .service-img {
+  transform: scale(1.1);
+}
+/* . {
+  background:url(../../../assets/images/image.png) center center no-repeat;
+  background-size: cover;
+} */
+/* Container for the testimonial section */
+/* Container for the testimonial section */
+/* Container for the testimonial section */
+.bg-testimonial {
+  background-image: url('../../../assets/images/image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+  padding: 5rem 0; /* Increased padding for more space */
+  overflow: hidden; /* Prevent content overflow */
+  min-height: 500px; /* Ensure minimum height */
+}
+
+.bg-testimonial::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay to improve text readability */
+  z-index: -1;
+}
+
+
+
+.cta-button-primary,
+.cta-button-secondary {
+  border-radius: 25px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cta-button-primary:hover {
+  background-color: #0069d9;
+  color: #fff;
+}
+
+.cta-button-secondary:hover {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+.service-text h5 {
+  font-size: 1.2rem;
+}
+
+.service-img-wrapper img {
+  transition: transform 0.3s;
+}
+
+.service-img-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.image-container {
+  max-width: 400px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.image-container {
+  max-width: 100%; /* Ensure the image does not overflow */
+  width: fit-content; /* Adjust the size as needed */
+}
+
+.image-container img {
+  width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain the aspect ratio */
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.content-container {
+  text-align: right; /* Align text to the right for RTL layout */
+}
+
+.list-columns {
+  column-count: 2; /* Split the list into 2 columns */
+  column-gap: 30px; /* Adjust spacing between columns */
+}
+
+ul.list-columns li {
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.text-primary {
+  color: #d4a373; /* Adjust the color to your design */
+}
+
+h1.text-primary {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1rem;
+  color: #333;
+}
+
+
+#teamCarousel .carousel-item {
+  text-align: center;
+  padding: 20px;
+}
+#teamCarousel img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+#teamCarousel .social-links i {
+  font-size: 20px;
+  color: #007bff;
+}
+#teamCarousel .social-links i:hover {
+  color: #0056b3;
+}
+
+
+
+
+/* slider */
+
+.team-slider-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background-color: #003366;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.team-slide {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.team-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.team-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  margin-bottom: 20px;
+}
+
+.team-details h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.team-details p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.appointment-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: white;
+  color: #003366;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.appointment-btn:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.control-btn {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.prev {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.next {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+/* Chatbot design */
+.chatbot-icon-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: #4394fd; 
+  border-radius: 30px; 
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.chatbot-icon-container:hover {
+  transform: scale(1.05);
+}
+
+.chatbot-icon {
+  width: 90px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.chatbot-icon img {
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  margin-right: -40px;
+  margin-top: -10px;
+}
+.chatbot-text {
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Tajawal', 'Poppins', sans-serif;
+  font-size: 21px;
+  white-space: nowrap;
+}
+
+@media (max-width: 0px) {
+  .team-slider {
+    transform: none !important;
+  }
+  .team-slide:not(:first-child) {
+    display: none;
+  }
+}
+
+
+/* Keyframes for fade-in and fade-out */
+@keyframes fade-in-out {
+  0%, 100% {
+    opacity: 0; /* Start and end invisible */
+  }
+  10%, 40% {
+    opacity: 1; /* Visible during these intervals */
+  }
+  50%, 100% {
+    opacity: 0; /* Fade out again */
+}
+}

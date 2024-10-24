@@ -1,0 +1,72 @@
+<div class="rtl-container">
+    <div class="dashboard-container p-4">
+      <div class="dashboard-header mb-4">
+        <h1 class="display-6 fw-bold text-primary">تحديث جدول المواعيد</h1>
+      </div>
+  
+      <div class="schedule-section bg-white rounded-3 p-4 mb-4 shadow-sm">
+        <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <select class="form-select py-2 border-0 bg-light" formControlName="branchId">
+                <option value="" disabled selected>اختر الفرع</option>
+                <option *ngFor="let branch of branches" [value]="branch.branchId">
+                  {{getBranchDisplayName(branch.branchName)}}
+                </option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="border-0 py-3">اليوم والتاريخ</th>
+                  <th class="border-0 py-3">يوم عمل</th>
+                  <th class="border-0 py-3">وقت البدء</th>
+                  <th class="border-0 py-3">وقت الانتهاء</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="schedules">
+                <tr *ngFor="let schedule of schedules.controls; let i = index" [formGroupName]="i">
+                  <td class="py-3">{{schedule.get('displayDay')?.value}}</td>
+                  <td class="py-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" formControlName="isWork" id="isWork{{i}}">
+                      <label class="form-check-label" for="isWork{{i}}">
+                        يوم عمل
+                      </label>
+                    </div>
+                  </td>
+                  <td class="py-3">
+                    <input type="time" class="form-control border-0 bg-light" formControlName="startTime">
+                  </td>
+                  <td class="py-3">
+                    <input type="time" class="form-control border-0 bg-light" formControlName="endTime"
+                           [class.is-invalid]="schedule.get('endTime')?.errors?.['invalidEndTime']">
+                    <div *ngIf="schedule.get('endTime')?.errors?.['invalidEndTime']" class="invalid-feedback">
+                      وقت الانتهاء يجب أن يكون بعد وقت البدء
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-circle me-2"></i>تحديث الجدول
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Success Modal -->
+  <div *ngIf="showSuccessModal" class="success-modal-overlay">
+    <div class="success-modal">
+      <i class="fas fa-check-circle success-icon"></i>
+      <h4 class="success-title">تم تحديث المواعيد الخاصة بك بنجاح</h4>
+      <button class="success-button" (click)="closeSuccessModal()">حسناً</button>
+    </div>
+  </div>

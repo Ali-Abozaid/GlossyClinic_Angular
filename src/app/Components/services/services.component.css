@@ -1,0 +1,261 @@
+.services-section {
+  background-color: #f7f7f7;
+  padding: 60px 0;
+}
+
+.service-card {
+  border: none;
+  transition: transform 0.3s ease;
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  max-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.service-icon {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.8rem; /* زيادة التباعد */
+  transition: none;
+  background-color: #fff;
+}
+
+/* تكبير حجم العنوان */
+.card-Name {
+  font-size: 1.8rem; /* زيادة من 1.6rem */
+  font-weight: bold;
+  color: #16325B;
+  margin-bottom: 1.2rem; /* زيادة المسافة بين العنوان والنص */
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+  min-height: 2.5rem;
+}
+
+/* تكبير حجم النص الرئيسي */
+.card-text {
+  font-size: 1.2rem; /* زيادة من 1rem */
+  color: #444; /* تغيير درجة اللون لتحسين القراءة */
+  margin-bottom: 1.2rem;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.6; /* تحسين ارتفاع السطر */
+  max-height: 3.2em;
+  font-weight: 400; /* تحسين وزن الخط */
+}
+
+.card-text.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  max-height: none;
+}
+
+/* تكبير حجم خط الأزرار */
+.btn-outline-primary {
+  border: 1px solid #16325B;
+  color: #16325B;
+  padding: 8px 16px; /* زيادة التباعد الداخلي */
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: auto;
+  width: fit-content;
+  align-self: center;
+  font-size: 1.1rem; /* زيادة حجم خط الزر */
+  font-weight: 500; /* تحسين وزن الخط */
+}
+
+.btn-outline-primary:hover {
+  background-color: #16325B;
+  color: white;
+}
+
+.card-footer {
+  background-color: transparent;
+  border-top: none;
+  padding: 1.2rem;
+  margin-top: auto;
+}
+
+.btn-primary {
+  background-color: #16325B;
+  border: none;
+  padding: 12px 24px; /* زيادة التباعد الداخلي */
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  font-size: 1.1rem; /* زيادة حجم خط الزر */
+}
+
+.btn-primary:hover {
+  background-color: #16325B;
+}
+
+.faq-section .accordion-button {
+  background-color: #16325B;
+  color: #fff;
+  border: none;
+}
+
+.faq-section .accordion-button:focus {
+  box-shadow: none;
+}
+
+.faq-section .accordion-item {
+  margin-bottom: 15px;
+}
+
+.faq-section .accordion-body {
+  font-size: 1rem;
+  color: #555;
+}
+.dental-problems-section {
+  background-color: #fff;
+  padding: 60px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #16325B;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+.dental-problems-section {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+}
+
+
+
+.problem-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.problem-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #16325B;
+  color: white;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+}
+
+.card-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* تكبير حجم العنوان */
+.card-title {
+  font-size: 1.8rem; /* زيادة من 1.6rem */
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 1.2rem; /* زيادة المسافة بين العنوان والنص */
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+  min-height: 2.5rem;
+}
+
+/* .card-body {
+  height: auto;
+  min-height: 200px;
+} */
+
+/* .card-text {
+  font-size: 1rem;
+  color: #555;
+} */
+
+.accordion-button::after {
+  margin-left: unset;
+}
+
+/* تحسين responsive design */
+@media (max-width: 768px) {
+  .service-card {
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+  }
+
+  .card-text {
+    font-size: 1.1rem;
+  }
+
+  .image-wrapper {
+    min-height: 150px;
+  }
+
+  .btn-outline-primary,
+  .btn-primary {
+    font-size: 1rem;
+  }
+}
+
+/* معالجة الفراغات والهوامش */
+.row.gy-4 {
+  margin-right: -12px;
+  margin-left: -12px;
+}
+
+.col-md-6.col-lg-4 {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+/* تحسين قراءة النص في حالة التوسيع */
+.card-text.expanded {
+  padding-bottom: 0.5rem;
+  text-align: justify; /* محاذاة النص */
+  hyphens: auto; /* تحسين قطع الكلمات */
+  word-spacing: 0.05em; /* تحسين المسافة بين الكلمات */
+}

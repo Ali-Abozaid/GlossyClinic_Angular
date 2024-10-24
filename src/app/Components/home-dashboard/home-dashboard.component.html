@@ -1,0 +1,149 @@
+
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card text-white todayAppointments">
+          <div class="card-header header">
+            <h3>الكشوفات اليوميه</h3>
+            <img src="../../../assets/images/group_9691504.png" alt="" class="icon">
+          </div>
+          <div class="card-body">
+            <p class="card-title text-white">عدد الكشوفات في اليوم الحالي:</p>
+            <h2 class="text-center">{{ todayAppointmentsCount }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card text-white Profits">
+          <div class="card-header header">
+            <h2>الارباح</h2>
+            <img src="../../../assets/images/revenue_7768566.png" alt="" class="icon">
+          </div>
+          <div class="card-body">
+            <p class="card-title text-white">اجمالي الأرباح لهذا الشهر :</p>
+            <h3 class="text-center">{{ totalProfits | currency:'EGP':'symbol':'1.2-2' }}</h3>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card text-white totalAppointments">
+          <div class="card-header header">
+            <h3>الكشوفات الشهريه</h3>
+            <img src="../../../assets/images/dental-record_9539977.png" alt="" class="icon">
+          </div>
+          <div class="card-body">
+            <p class="card-title text-white">عدد الكشوفات في الشهر الحالي:</p>
+            <h2 class="text-center">{{ totalAppointments }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-4">
+      <div class="col-lg-4 mb-4">
+        <div class="card">
+          <canvas id="genderChart" width="300" height="300"></canvas>
+        </div>
+  
+      </div>
+      <div class="col-lg-8 mb-4">
+        <div class="card bg-dark text-white">
+          <div class="card-body">
+            <canvas id="appointmentChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-4">
+      <div class="col-lg-4 mb-4">
+  
+        <div class="card mt-8">
+          <canvas id="typeChart" width="300" height="500"></canvas>
+        </div>
+      </div>
+  
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="search-group mb-3">
+              <select class="form-select search-select" [(ngModel)]="searchType">
+                <option value="name">بحث عن اسم المريض</option>
+                <option value="phone">بحث عن رقم الهاتف</option>
+              </select>
+              <input type="text" placeholder="بحث" class="form-control search-input" [(ngModel)]="searchQuery" (input)="filterAppointments()" />
+            </div>
+            <table class="appointment-table">
+              <thead>
+                <tr>
+                  <th>السعر</th>
+                  <th>الوقت</th>
+                  <th>التاريخ</th>
+                  <th>رقم الهاتف</th>
+                  <th>النوع</th>
+                  <th>العمر</th>
+                  <th>الجنس</th>
+                  <th>اسم الدكتور</th>
+                  <th>اسم المريض</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let appointment of filteredAppointments" class="appointment-row">
+                  <td>{{ appointment.cost }}</td>
+                  <td>{{ formatTime(appointment.time) }}</td>
+                  <td>{{ appointment.date | date : "yyyy-MM-dd" }}</td>
+                  <td>{{ appointment.patientPhoneNumber }}</td>
+                  <td><span *ngIf="appointment.type === 0">كشف</span><span *ngIf="appointment.type === 1">اعادة</span><span *ngIf="appointment.type === 2">جلسة</span></td>
+                  <td>{{ appointment.patientAge }}</td>
+                  <td><span *ngIf="appointment.patientGender === 0">ذكر</span><span *ngIf="appointment.patientGender === 1">انثي</span></td>
+                  <td>{{ appointment.doctorName }}</td>
+                  <td>{{ appointment.patientName }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card costChart">
+          <div class="card-body">
+            <div class="chart-controls mb-3">
+              <div class="chart-select-group">
+                <label for="year">اختر السنة:</label>
+                <select id="year" class="form-select" [(ngModel)]="selectedYear">
+                  <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                </select>
+              </div>
+              <div class="chart-select-group">
+                <label for="month">اختر الشهر:</label>
+                <select id="month" class="form-select" [(ngModel)]="selectedMonth">
+                  <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" (click)="generateChart()">عرض الرسم البياني</button>
+            </div>
+            <canvas id="costChart" width="400" height="100"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4>توزيع الأعمار للمرضى</h4>
+            <canvas id="ageChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  
+  

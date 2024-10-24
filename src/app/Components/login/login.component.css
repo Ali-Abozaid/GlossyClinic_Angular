@@ -1,0 +1,40 @@
+
+.bg-header{
+    background-color: #b3d9ff;
+
+}
+input[type="email"] {
+    direction: rtl;
+    text-align: right; 
+}
+  .password-toggle-btn {
+    position: absolute; /* Position it absolutely within the input's parent */
+    top: 52%; /* Center vertically */
+    right:95%;
+    transform: translateY(-25%); 
+    z-index: 1; /* Ensure it appears above other elements */
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .password-toggle-btn {
+    top: 52%; /* Center vertically */
+    right:95%;
+    transform: translateY(-25%);
+    }
+}
+@media (max-width: 991.98px) {
+    .password-toggle-btn {
+    top: 52%; /* Center vertically */
+    right:93%;
+    transform: translateY(-25%);
+    }
+}
+
+@media (max-width: 1399.98px) {
+    .password-toggle-btn {
+    top: 52%; /* Center vertically */
+    right:93%;
+    transform: translateY(-25%);
+    }
+}

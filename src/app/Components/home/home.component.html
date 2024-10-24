@@ -1,0 +1,179 @@
+<div class="container-fluid ps-0 pe-0">
+  <div class="hero-section p-0 ">
+      <div class="container-fluid hero-content">
+        <h1>أهلاً بكم في عيادتنا</h1>
+        <p>ابتسامتك هي أولويتنا. نحن نقدم رعاية أسنان عالية الجودة لك ولعائلتك</p>
+        <a routerLink="/services" class="cta-button-primary btn py-md-3 px-md-5 me-3 animated slideInLeft">خدماتنا</a>
+        <a routerLink="/contact" class="cta-button-secondary btn py-md-3 px-md-5 animated slideInRight">اتصل بنا</a>
+      </div>
+  </div>
+</div>
+
+<!-- Banner Start -->
+<div class="container banner mb-5">
+  <div class="container">
+    <div class="row gx-0">
+      <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
+        <div class="bg-primary d-flex flex-column p-5" style="height: 400px;">
+          <h3 class="text-white mb-3">ساعات العمل</h3>
+          <div class="d-flex justify-content-between text-white mb-3">
+            <h6 class="text-white mb-0">الإثنين - الجمعة</h6>
+            <p class="mb-0"> 8:00 صباحًا - 9:00 مساءً</p>
+          </div>
+          <div class="d-flex justify-content-between text-white mb-3">
+            <h6 class="text-white mb-0">السبت</h6>
+            <p class="mb-0"> 8:00 صباحًا - 7:00 مساءً</p>
+          </div>
+          <div class="d-flex justify-content-between text-white mb-3">
+            <h6 class="text-white mb-0">الأحد</h6>
+            <p class="mb-0"> 8:00 صباحًا - 5:00 مساءً</p>
+          </div>
+          <a class="btn btn-light" href=""> حدد موعد</a>
+        </div>
+      </div>
+
+      <div class="col-lg-6 wow zoomIn" data-wow-delay="0.6s">
+        <div class="bg-secondary d-flex flex-column p-5" style="height: 400px;">
+          <h3 class="text-white mb-3">اتصل بنا</h3>
+          <p class="text-white">ننتظر مكالماتكم و استفساراتكم</p>
+          <h2 class="text-white mb-0">+012 345 6789</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Banner End -->
+<!-- about -->
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container">
+      <div class="row g-5">
+          <div class="col-lg-6 order-lg-2 d-flex justify-content-center align-items-center">
+              <div class="image-container position-relative">
+                  <img class="rounded img-fluid" src="assets/images/21.png" alt="Clinic Reception">
+              </div>
+          </div>
+          <div class="col-lg-6 content-container">
+              <div class="section-title mb-4">
+                  <h5 class="position-relative d-inline-block text-primary text-uppercase">من نحن</h5>
+                  <h1 class="display-5 mb-0">عن عيادة جلوسي</h1>
+              </div>
+              <h4 class="text-body fst-italic mb-4">تعتبر جلوسي إحدى العيادات الرائدة في مصر والشرق الأوسط والتي تعتمد وتطبق فكرة فريق العمل المتكامل في كافة فروع طب الأسنان العلاجي والتجميلي وتعتمد منذ تأسيسها على استخدام أحدث تكنولوجيا في مجال طب الأسنان مما جعلها مقصداً للمرضى من خارج وداخل مصر لزراعة أو تجميل وعلاج أسنانهم</h4>
+             
+
+              <div class="row mt-4">
+                  <ul class="list-unstyled text-end list-columns">
+                      <li><i class="fa fa-check-circle text-primary"></i> تجميل الأسنان</li>
+                      <li><i class="fa fa-check-circle text-primary"></i> زراعة الأسنان</li>
+                      <li><i class="fa fa-check-circle text-primary"></i> علاج الجذور وحشو العصب</li>
+                      <li><i class="fa fa-check-circle text-primary"></i> جراحة الوجه والفكين</li>
+                      <li><i class="fa fa-check-circle text-primary"></i> العلاج التحفظي والعصبي</li>
+                      <li><i class="fa fa-check-circle text-primary"></i> طب أسنان الأطفال</li>
+                  </ul>
+              </div>
+              <a routerLink="/book"  class="btn btn-primary py-3 px-5 mt-4 wow zoomIn" data-wow-delay="0.6s">احجز موعد</a>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- about end -->
+
+
+
+<!-- DoctorsSlider -->
+<!-- Team Slider Section -->
+
+<!-- Team Slider Section -->
+<!-- home.component.html -->
+<!-- home.component.html -->
+<div class="team-slider-container">
+<div class="team-slider" [ngStyle]="{'transform': 'translateX(' + (-currentIndex * 100) + '%)'}">
+  <div class="team-slide" *ngFor="let member of teamMembers; let i = index">
+    <div class="team-content">
+      <img [src]="member.image" [alt]="member.name" class="team-img">
+      <div class="team-details">
+        <h3>{{ member.name }}</h3>
+        <p *ngFor="let detail of member.details">{{ detail }}</p>
+      </div>
+      <button class="appointment-btn" routerLink="/book">أحجز ميعاد</button>
+    </div>
+  </div>
+</div>
+<div class="slider-controls" *ngIf="isBrowser">
+  <button (click)="prevSlide()" class="control-btn prev">&#10094;</button>
+  <button (click)="nextSlide()" class="control-btn next">&#10095;</button>
+</div>
+</div>
+
+<!-- DoctorsSliderEnd -->
+
+
+
+
+<!-- Service Start -->
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container">
+      <div class="text-center mb-5">
+          <h5 class="position-relative d-inline-block text-primary text-uppercase">تعرف على أهم خدماتنا</h5>
+          <h1 class="display-5 mb-0">نقدّم أفضل خدمات طب الأسنان بجودة عالية</h1>
+      </div>
+      <div class="row g-4">
+          <div class="col-lg-3 col-md-6 wow zoomIn" data-wow-delay="0.3s">
+              <div class="service-item bg-light rounded h-100 shadow">
+                  <div class="rounded-top overflow-hidden">
+                      <img class="img-fluid" src="assets/images/dentist3.jpg" alt="زراعة الأسنان">
+                  </div>
+                  <div class="p-4 text-center">
+                      <h5 class="mb-3">زراعة الأسنان</h5>
+                      <p>الحل الأمثل لتعويض الفقد في الأسنان صار أقرب وأسهل من أي وقت سابق من خلال زراعة الأسنان بأيدي متخصصي زراعة الأسنان في كابيتال دينتال كلينك</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 wow zoomIn" data-wow-delay="0.6s">
+              <div class="service-item bg-light rounded h-100 shadow">
+                  <div class="rounded-top overflow-hidden">
+                      <img class="img-fluid" src="assets/images/dentist2.jpg" alt="طب الأسنان التجميلي">
+                  </div>
+                  <div class="p-4 text-center">
+                      <h5 class="mb-3">طب الأسنان التجميلي</h5>
+                      <p>تقنية تصميم الإبتسامة بالكمبيوتر هي الأساس الذي يتم من خلاله تصنيع كل التقنيات والمنتجات المستخدمة في تجميل الأسنان داخل عيادات كابيتال دينتال كلينيك</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 wow zoomIn" data-wow-delay="0.9s">
+              <div class="service-item bg-light rounded h-100 shadow">
+                  <div class="rounded-top overflow-hidden">
+                      <img class="img-fluid" src="assets/images/dentist4.jpg" alt="Hybrid veneers">
+                  </div>
+                  <div class="p-4 text-center">
+                      <h5 class="mb-3">Hybrid veneers</h5>
+                      <p>تعتبر تقنية Hybrid veneers لتجميل الأسنان واحدة من أحدث طرق تجميل الأسنان والتي تجمع بين دقة وسرعة تقنيات تصميم الإبتسامة بالكمبيوتر المستخدمة في تصنيع ال veneers</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 wow zoomIn" data-wow-delay="1.2s">
+              <div class="service-item bg-light rounded h-100 shadow">
+                  <div class="rounded-top overflow-hidden">
+                      <img class="img-fluid" src="assets/images/dentist5.jpg" alt="3N Veneers">
+                  </div>
+                  <div class="p-4 text-center">
+                      <h5 class="mb-3">3N Veneers</h5>
+                      <p>تقنية تري إن فينيرز 3N Veneers الآن في مصر لأول مرة وبشكل حصري لعيادات كابيتال دينتال كلينيك تري إن فينيرز الإبتكار الأحدث والأكثر تطورا في عالم تجميل الأسنان</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="text-center mt-5">
+    <a href="" class="btn btn-primary py-3 px-5">تعرف على المزيد من خدماتنا</a>
+</div>
+  <!-- Service End -->
+
+<!-- Chatbot -->
+<div class="chatbot-icon-container" (click)="openChat()">
+  <div class="chatbot-icon">
+    <img src="Images/chatbo11nobg.png" alt="Chatbot" />
+  </div>
+  <span class="chatbot-text">تواصل معنا</span>
+</div>
+</div>
+<!-- Service End -->

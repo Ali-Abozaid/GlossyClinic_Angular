@@ -1,0 +1,107 @@
+<div class="rtl-container">
+  <div class="booking-container">
+    <div class="booking-header">
+      <h1 class="display-6 fw-bold text-primary">حجز موعد جديد</h1>
+    </div>
+    
+    <div class="booking-card">
+      <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="doctor">اختر الطبيب</label>
+          <select id="doctor" class="form-select" formControlName="doctor" (change)="onDoctorSelect()">
+            <option value="">اختر طبيب</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.doctorId">
+              {{doctor.name}}
+            </option>
+          </select>
+          <div class="validation-error" 
+               *ngIf="appointmentForm.get('doctor')?.touched && appointmentForm.get('doctor')?.errors?.['required']">
+            يرجى اختيار الطبيب
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="branch">اختر الفرع</label>
+          <select id="branch" class="form-select" formControlName="branch" (change)="onBranchSelect()">
+            <option value="">اختر فرع</option>
+            <option *ngFor="let branch of branches" [value]="branch.branchId">
+              {{ getBranchLabel(branch.branchName) }}
+            </option>
+          </select>
+          <div class="validation-error" 
+               *ngIf="appointmentForm.get('branch')?.touched && appointmentForm.get('branch')?.errors?.['required']">
+            يرجى اختيار الفرع
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <label for="date">اختر التاريخ</label>
+          <mat-form-field style="width: 100%;">
+            <input matInput [matDatepicker]="picker" formControlName="date"
+                   [matDatepickerFilter]="dateFilter" (dateChange)="onDateSelect($event)" 
+                   placeholder="اختر تاريخ" >
+            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div class="validation-error" 
+               *ngIf="appointmentForm.get('date')?.touched && appointmentForm.get('date')?.errors?.['required']">
+            يرجى اختيار التاريخ
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="type">نوع الموعد</label>
+          <select id="type" class="form-select" formControlName="type">
+            <option value="">اختر نوع الموعد</option>
+            <option *ngFor="let type of appointmentTypes" [value]="type.id">
+              {{type.name}}
+            </option>
+          </select>
+          <div class="validation-error" 
+               *ngIf="appointmentForm.get('type')?.touched && appointmentForm.get('type')?.errors">
+            <span *ngIf="appointmentForm.get('type')?.errors?.['required']">
+              يرجى اختيار نوع الموعد
+            </span>
+            <span *ngIf="appointmentForm.get('type')?.errors?.['min'] || appointmentForm.get('type')?.errors?.['max']">
+              نوع الموعد غير صالح
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>وقت الموعد</label>
+          <div class="time-slots">
+            <button type="button" *ngFor="let slot of timeSlots"
+                    class="time-slot-btn"
+                    [class.active]="slot.isSelected"
+                    [disabled]="slot.isDisabled"
+                    (click)="onTimeSelect(slot.time)">
+              {{slot.time}}
+            </button>
+          </div>
+          <div class="validation-error" 
+               *ngIf="appointmentForm.get('time')?.touched && appointmentForm.get('time')?.errors?.['required']">
+            يرجى اختيار وقت الموعد
+          </div>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+        <button type="submit" class="submit-btn btn btn-primary w-100" 
+                [disabled]="!appointmentForm.valid">
+          حجز الموعد
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div *ngIf="showSuccessModal" class="success-modal-overlay">
+  <div class="success-modal">
+    <i class="fas fa-check-circle success-icon"></i>
+    <h4 class="success-title">تم حجز الموعد بنجاح</h4>
+    <p class="success-message">شكراً لك على حجز موعدك. نتطلع إلى رؤيتك قريباً!</p>
+    <button class="success-button" (click)="closeSuccessModal()">حسناً</button>
+  </div>
+</div>

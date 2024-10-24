@@ -1,0 +1,91 @@
+/* General Navbar Styling */
+.navbar-nav .nav-link {
+  color: #333; /* Default text color */
+  padding: 0.5rem 0.5rem; /* Add some padding for better spacing */
+  transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+/* Hover Effect for Navbar Links */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #007bff; /* Change to your brand's primary color */
+  background-color: #f8f9fa; /* Light background for hover effect */
+  border-radius: 5px; /* Rounded edges on hover */
+  text-decoration: none; /* Remove underline */
+}
+
+
+
+/* Notification Icon Adjustments */
+.notification-badge {
+  position: absolute;
+  top: 10%; /* Adjust to position the badge correctly */
+  right: 10%; /* Adjust to position the badge correctly */
+  transform: translate(50%, -50%);
+  background-color: #dc3545; /* Red background color for the badge */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px; /* Smaller padding to make the badge more compact */
+  font-size: 0.75rem; /* Adjust the font size to make it smaller */
+  min-width: 20px; /* Set a minimum width to maintain the circle shape */
+  height: 20px; /* Set a fixed height to ensure it's a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  /* Adjust the logo size */
+  .navbar-brand img {
+    width: 120px; /* Reduce the logo size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  /* Align notification and profile icons on small devices */
+  .nav-item.dropdown .nav-link {
+    padding: 0.25rem 0.5rem; /* Reduce padding */
+  }
+
+  .notification-badge {
+    width: 20px; /* Fixed width */
+    height: 20px; /* Fixed height */
+    font-size: 0.6rem; /* Smaller font size */
+    top: 0; /* Align to the top of the parent element */
+    right: 0; /* Align to the right for RTL layout */
+    transform: translate(50%, -30%); /* Adjust for proper positioning */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Adjust the navbar toggler icon for better visibility */
+  .navbar-toggler {
+    margin-right: 0.5rem; /* Add spacing to the toggler icon */
+  }
+  .notification-badge {
+    width: 20px; /* Fixed width */
+    height: 20px; /* Fixed height */
+    font-size: 0.6rem; /* Smaller font size */
+    top: 0; /* Align to the top of the parent element */
+    right: 0; /* Align to the right for RTL layout */
+    transform: translate(-30%, -30%); /* Adjust for proper positioning */
+  }
+}
+
+@media (max-width: 991.98px) {
+  /* Adjust the navbar toggler icon for better visibility */
+  .navbar-toggler {
+    margin-right: 0.5rem; /* Add spacing to the toggler icon */
+  }
+  .notification-badge {
+    width: 20px; /* Fixed width */
+    height: 20px; /* Fixed height */
+    font-size: 0.6rem; /* Smaller font size */
+    top: 0; /* Align to the top of the parent element */
+    right: 0; /* Align to the right for RTL layout */
+    transform: translate(-30%, -30%); /* Adjust for proper positioning */
+  }
+}
+
+
+

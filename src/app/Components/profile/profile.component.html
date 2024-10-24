@@ -1,0 +1,260 @@
+<div class="container-fluid w-75 mt-4">
+  <h2 class="styled-heading">الملف الشخصي للمريض</h2>
+  <div class="row">
+    <div class="col-md-12">
+      <label for="name" class="font-large">الاسم</label> : 
+      <span class="font-span">{{patientData.name}}</span>
+      <hr>
+    </div>
+    <div class="col-md-12">
+      <label for="age" class="font-large">العمر</label> : 
+      <span class="font-span">{{patientData.age}}</span>
+      <hr>
+    </div>
+    <div class="col-md-12 mt-3">
+      <label for="phoneNumber" class="font-large">رقم الهاتف</label> : 
+      <span class="font-span">{{patientData.phoneNumber}}</span>
+      <hr>
+    </div>
+    <div class="col-md-12 mt-3">
+      <label for="address" class="font-large">العنوان</label> : 
+      <span class="font-span">{{patientData.address}}</span>
+      <hr>
+
+    </div>
+    <div class="col-md-12 mt-3">
+      <label for="gender" class="font-large">النوع</label> : 
+      <span class="font-span">{{ patientData.gender === 0 ? 'ذكر' : (patientData.gender === 1 ? 'أنثى' : 'غير محدد') }}</span>
+      <hr>
+    </div>
+  </div>
+
+  <div class="col-md-12 mt-4">
+    <h3 class="styled-heading">التاريخ المرضي</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let condition of selectedMedicalConditions; let i = index">
+        <div class="list-group-item">
+          {{ condition }}
+        </div>
+      </div>
+    </div>
+    <h3 *ngIf="selectedMedicalConditions.length === 0" class="text-muted">لا توجد حالات طبية محددة.</h3>
+  </div>
+  
+
+  <button class="btn btn-primary mt-4" (click)="openEditModal()">تعديل الملف الشخصي</button>
+  
+</div>
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="editName" class="form-label">الاسم</label>
+              <input id="editName" type="text" class="form-control" formControlName="name">
+              <div *ngIf="editForm.get('name')?.invalid && editForm.get('name')?.touched" class="text-danger">
+                <small *ngIf="editForm.get('name')?.errors?.['required']">الاسم مطلوب</small>
+                <small *ngIf="editForm.get('name')?.errors?.['pattern']">الاسم يجب أن يحتوي على حروف فقط</small>
+                <small *ngIf="editForm.get('name')?.errors?.['minlength']">الاسم يجب أن يكون على الأقل 3 أحرف</small>
+                <small *ngIf="editForm.get('name')?.errors?.['maxlength']">الاسم يجب أن لا يتجاوز 50 حرفًا</small>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="editAge" class="form-label">العمر</label>
+              <input id="editAge" type="number" class="form-control" formControlName="age">
+              <div *ngIf="editForm.get('age')?.invalid && editForm.get('age')?.touched" class="text-danger">
+                <small *ngIf="editForm.get('age')?.errors?.['required']">العمر مطلوب</small>
+                <small *ngIf="editForm.get('age')?.errors?.['min'] || editForm.get('age')?.errors?.['max']">العمر يجب أن يكون أكبر من 0 واقل من 100</small>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="editGender" class="form-label">الجنس</label>
+              <select id="editGender" class="form-select" formControlName="gender">
+                <option [ngValue]="0">ذكر</option>
+                <option [ngValue]="1">أنثى</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="editPhoneNumber" class="form-label">رقم الهاتف</label>
+              <input id="editPhoneNumber" type="tel" class="form-control" formControlName="phoneNumber">
+              <div *ngIf="editForm.get('phoneNumber')?.invalid && editForm.get('phoneNumber')?.touched" class="text-danger">
+                <small *ngIf="editForm.get('phoneNumber')?.errors?.['required']">رقم الهاتف مطلوب</small>
+                <small *ngIf="editForm.get('phoneNumber')?.errors?.['pattern']">يجب أن يكون رقم هاتف مصري صحيح</small>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="editAddress" class="form-label">العنوان</label>
+              <input id="editAddress" type="text" class="form-control" formControlName="address">
+              <div *ngIf="editForm.get('address')?.invalid && editForm.get('address')?.touched" class="text-danger">
+                <small *ngIf="editForm.get('address')?.errors?.['required']">العنوان مطلوب</small>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="mt-4" class="styled-heading" style="text-align: center;">التاريخ المرضي</h3>
+          <div class="row">
+            <div class="col-md-4" *ngFor="let condition of medicalConditions; let i = index">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" [id]="'condition' + i" [formControlName]="condition.key">
+                <label class="form-check-label" [for]="'condition' + i">
+                  {{ condition.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="editForm.invalid">حفظ التغييرات</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirmationModalLabel">تأكيد الحفظ</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <h3 class="modal-body">
+        هل أنت متأكد من حفظ التغييرات؟
+      </h3>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+        <button type="button" class="btn btn-primary" (click)="confirmSave()">تأكيد</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3 class="styled-heading">المواعيد الخاصة بك</h3>
+
+</div>
+
+<img class="responsive-image" src="../../../assets/images/22.jpg" alt="" srcset="">
+
+<div class="table-responsive w-75 mb-5">
+  <table class="table table-bordered table-striped table-hover" *ngIf="appointments.length > 0; else noAppointments">
+    <thead class="thead-dark">
+      <tr>
+        <th>اسم الطبيب</th>
+        <th>تاريخ الموعد</th>
+        <th>وقت الموعد</th>
+        <th>التكلفة</th>
+        <th>النوع</th>
+        <th>التقارير</th>
+        <th>الإجراءات</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{ appointment.doctorName }}</td>
+        <td>{{ appointment.date | date : "yyyy-MM-dd" }}</td>
+        <td>{{ formatTime(appointment.time) }}</td>
+        <td>{{ appointment.cost | currency : " جنيه " }}</td>
+        <td>
+          <span *ngIf="appointment.type === 0">كشف </span
+          ><span *ngIf="appointment.type === 1">اعادة </span
+          ><span *ngIf="appointment.type === 2">تجميل </span
+          ><span *ngIf="appointment.type === 3">زراعه </span
+          ><span *ngIf="appointment.type === 4">علاج الجذور وحشو العصب </span
+          ><span *ngIf="appointment.type === 5">حشو عادي </span
+          ><span *ngIf="appointment.type === 6">تقويم </span
+          ><span *ngIf="appointment.type === 7">امراض و تجميل اللثه </span
+          ><span *ngIf="appointment.type === 8">جراحه الوجه و الفكين </span
+          ><span *ngIf="appointment.type === 9">معمل الاسنان </span>
+        </td>
+       
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="openReportModal(appointment.reports)">
+            عرض
+          </button>
+
+
+        </td>
+        <td>
+          <button
+            (click)="cancelAppointment(appointment.appointmentId)"
+            class="btn btn-danger btn-sm"
+          >
+            إلغاء
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="cancelModalLabel">تاكيد الغاء الحجز</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>        هل انت متاكد من الغاء الحجز؟
+        </h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+        <button type="button" class="btn btn-danger" (click)="confirmCancel()">تاكيد</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resultModalLabel">{{ resultTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ resultMessage }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">تم</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noAppointments>
+  <h3 class="no-appointments">لا توجد مواعيد مسجلة.</h3>
+</ng-template> 
+
+
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="reportModalLabel">تقرير المريض</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body report-modal-body">
+        <div *ngIf="reportContent">
+          <p>{{ reportContent }}</p> 
+          </div>
+        <div *ngIf="!reportContent">
+          <p>لا توجد تقارير متاحة.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,99 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow mt-0 pt-0 pb-0" dir="rtl">
+  <div class="container-fluid ps-0 pe-0 me-0">
+    <!-- Logo Section -->
+    <a class="navbar-brand ms-4" routerLink="home" routerLinkActive="active">
+      <img src="./assets/images/EnhancedLogo.png" width="170" height="70" class="d-inline-block" alt="Logo">
+    </a>
+
+    <!-- Mobile Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link fs-5" routerLink="home" routerLinkActive="active">الصفحة الرئيسية</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" routerLink="/service" routerLinkActive="active">خدماتنا</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" routerLink="/about" routerLinkActive="active">ماذا عنا؟</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" routerLink="/contact" routerLinkActive="active">اتصل بنا</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" routerLink="/book" routerLinkActive="active">احجز الان</a>
+        </li>
+
+        <!-- Conditional Login/Register or Profile Links -->
+        <ng-container *ngIf="!islogin">
+          <li class="nav-item">
+            <a class="nav-link fs-5" routerLink="/login" routerLinkActive="active">تسجيل دخول</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fs-5" routerLink="/register" routerLinkActive="active">تسجيل</a>
+          </li>
+        </ng-container>
+
+        <!-- Notifications Dropdown -->
+        <ng-container *ngIf="islogin">
+          <li class="nav-item dropdown not" [ngClass]="{ 'show': dropdownOpen }">
+            <a class="nav-link position-relative" id="notificationDropdown" role="button" aria-haspopup="true" aria-expanded="dropdownOpen" (click)="toggleDropdown()">
+              <i class="fa-solid fa-bell fs-3"></i>
+              <span *ngIf="unreadCount > 0" class="notification-badge">
+                {{ unreadCount }}
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" [ngClass]="{ 'show': dropdownOpen }" aria-labelledby="notificationDropdown">
+              <ng-container *ngIf="sortedNotifications.length; else noNotifications">
+                <a
+                  class="dropdown-item notification-item border-bottom py-2"
+                  *ngFor="let notification of sortedNotifications"
+                  [ngClass]="{ 'font-weight-bold': !notification.isRead }"
+                  (click)="markAsRead(notification)"
+                >
+                  <i class="fa-solid" [ngClass]="notification.isRead ? 'fa-check-circle text-success' : 'fa-circle text-danger'"></i>
+                  <span class="notification-message fs-5">{{ notification.message }}</span>
+                </a>
+              </ng-container>
+              <ng-template #noNotifications>
+                <span class="dropdown-item text-muted fs-4">لا توجد إشعارات</span>
+              </ng-template>
+            </div>
+          </li>
+
+          <!-- Profile Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user-circle fs-2"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end fs-5" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" routerLink="/profile">عرض الملف الشخصي</a></li>
+              <li><a class="dropdown-item" routerLink="/ChangePassword">تغيير كلمة المرور</a></li>
+              <li><a class="dropdown-item" href="#" (click)="confirmLogout(); $event.preventDefault()">تسجيل خروج</a></li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<ng-template #logoutModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">تأكيد تسجيل الخروج</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    هل أنت متأكد أنك تريد تسجيل الخروج؟
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-danger" (click)="logOutUser()">تسجيل خروج</button>
+  </div>
+</ng-template>

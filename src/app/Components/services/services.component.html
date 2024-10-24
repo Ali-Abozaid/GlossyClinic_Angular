@@ -1,0 +1,168 @@
+<section class="services-section py-5">
+  <div class="container mt-3">
+    <div class="text-center mb-5">
+      <h1 class="section-title">خدمات طب الأسنان لدينا</h1>
+      <p class="section-subtitle">نحن نقدم مجموعة واسعة من خدمات طب الأسنان لتلبية احتياجاتك والحفاظ على ابتسامتك صحية وجميلة.</p>
+    </div>
+
+    <div class="row gy-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let service of services">
+        <div class="card service-card shadow">
+          <div class="image-wrapper">
+            <img [src]="service.icon" alt="{{service.title}}" class="service-icon">
+          </div>
+
+          <div class="card-body text-center">
+            <h4 class="card-Name">{{ service.title }}</h4>
+            <p class="card-text" [class.expanded]="service.showFullDescription">
+              {{ service.description }}
+            </p>
+            <button class="btn btn-outline-primary" (click)="toggleDescription(service)">
+              {{ service.showFullDescription ? 'تقليل' : 'عرض المزيد' }}
+            </button>
+          </div>
+
+          <div class="card-footer text-center">
+            <a [routerLink]="['/book']" class="btn btn-primary">احجز الان</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="faq-section py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">الأسئلة الشائعة</h2>
+      <p class="section-subtitle">هنا ستجد إجابات للأسئلة الشائعة التي قد تكون لديك عن خدماتنا.</p>
+
+    </div>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            ما هي خدمات طب الأسنان التي تقدمونها؟
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            نقدم خدمات متنوعة من تنظيف الأسنان، حشوات العصب، زراعة الأسنان، وتركيبات الأسنان.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            هل أحتاج إلى استشارة قبل زراعة الأسنان؟
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            نعم، يجب أن تحدد موعدًا لاستشارة أولية لتحديد حالتك وتحديد العلاج المناسب.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            ما هي طرق الدفع المتاحة؟
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            نقبل الدفع النقدي، بطاقات الائتمان، والتحويلات البنكية.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+            خطوات زراعة الأسنان؟
+          </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            1 - التخلص من السن المكسور أو المُصاب. <br>
+            2 - الاستعانة بالعظم الصناعي إذا لزم الأمر. <br>
+            3 - وضع الغرسة داخل عظم الفك. <br>
+            4 - الاندماج العظمي والتئام الجرح. <br>
+            5 - وضع غطاء الزرعة . <br>
+            6 - تركيب الضرس.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+            كيف يمكنني حجز موعد؟
+          </button>
+        </h2>
+        <div id="faq5" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            يمكنك حجز موعد عبر الموقع الإلكتروني من خلال النقر على زر "احجز الآن" الموجود أسفل الخدمة التي ترغب فيها. كما يمكنك الاتصال بنا مباشرة.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+            ما هي الإجراءات المتبعة لتنظيف الجير؟
+          </button>
+        </h2>
+        <div id="faq6" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            عملية تنظيف الجير تشمل إزالة طبقة الجير المتراكمة على الأسنان باستخدام أدوات طبية متخصصة، تليها تلميع الأسنان لتجنب تراكم البكتيريا مستقبلاً.
+
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+            هل حشو العصب مؤلم؟
+          </button>
+        </h2>
+        <div id="faq7" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            حشو العصب يتم تحت التخدير الموضعي، لذا لن تشعر بألم أثناء العملية. قد يكون هناك بعض الحساسية بعد العلاج، لكنها مؤقتة وتختفي خلال أيام قليلة.
+          </div>
+        </div>
+      </div>
+
+
+      <section class="dental-problems-section py-5">
+        <div class="container">
+
+          <div class="text-center mb-5">
+            <h2 class="section-title">مشاكل الأسنان الشائعة</h2>
+            <p class="section-subtitle">نحن هنا لمساعدتك في التغلب على أي مشكلة تتعلق بأسنانك.</p>
+          </div>
+
+
+          <div class="row gy-4">
+            <div class="col-md-6 col-lg-4" *ngFor="let problem of dentalProblems">
+              <div class="problem-card">
+                <div class="card-header">
+                  <h5 class="card-title">{{ problem.title }}</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">{{ problem.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.alert {
+  margin-top: 20px; /* Additional spacing for the alert message */
+}
+
+input[type="email"] {
+  direction: rtl;
+  text-align: right; 
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Force hiding horizontal scroll */
+  margin: 0; /* Ensure no margin on the body */
+  padding: 0; /* Ensure no padding on the body */
+}
+
+.background-image-container {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url('../../../assets/images/back.jpg');
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+  width: 100vw; /* Use viewport width to cover the full screen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.password-toggle-btn {
+  position: absolute; /* Position it absolutely within the input's parent */
+  top: 63%; /* Center vertically */
+  right:96%;
+  transform: translateY(-25%); 
+  z-index: 1; /* Ensure it appears above other elements */
+  cursor: pointer;
+}
+
+@media (max-width:576px) {
+  .password-toggle-btn {
+    top: 63%; /* Center vertically */
+    right:96%;
+    transform: translateY(-25%);
+  }
+ 
+  
+}
+@media (max-width: 768px) {
+  .password-toggle-btn {
+    top: 63%; /* Center vertically */
+    right:90%;
+    transform: translateY(-25%);
+  }
+  .title{
+    margin-top: 25px;
+  }
+}
+@media (max-width: 991.98px) {
+  .password-toggle-btn {
+    top: 63%; /* Center vertically */
+    right:96%;
+    transform: translateY(-25%);
+  }
+}
+
+@media (max-width: 1399.98px) {
+  .password-toggle-btn {
+    top: 63%; /* Center vertically */
+    right:94%;
+    transform: translateY(-25%);
+  }
+}
+
+
+
+.col-12.col-md-8.col-lg-6 {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 576px) {
+  .col-12.col-md-8.col-lg-6 {
+    max-width: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-12.col-md-8.col-lg-6 {
+    max-width: 70%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-12.col-md-8.col-lg-6 {
+    max-width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-12.col-md-8.col-lg-6 {
+    max-width: 50%;
+  }
+}

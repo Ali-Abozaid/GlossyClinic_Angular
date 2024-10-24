@@ -1,0 +1,23 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="chat-container">
+  <h3>الدردشة الخاصة ب  {{ patientData.name }}</h3> <!-- Display patient name here -->
+
+  <div class="messages-container">
+    <div class="message" *ngFor="let msg of messages" [ngClass]="{ 'own-message': msg.user === patientData.name }">
+      <strong>{{ msg.user }}:</strong> {{ msg.message }}
+    </div>
+  </div>
+
+  <div class="chat-input-container">
+    <input [(ngModel)]="message" placeholder="اكتب رسالتك" class="chat-input" />
+    <button (click)="sendMessage()" class="send-btn">ارسال</button>
+  </div>
+</div>
+
+

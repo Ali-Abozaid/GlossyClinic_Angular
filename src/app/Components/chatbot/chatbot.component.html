@@ -1,0 +1,61 @@
+<div class="chat-panel" *ngIf="chatService.isChatOpen$ | async">
+  <div class="chat-header">
+    <h2>تواصل معنا!</h2>
+    <i class="bi bi-fullscreen-exit" (click)="minimizeChat()"></i>
+  </div>
+
+  <div *ngIf="!isExpanded" class="chat-initial-state">
+    <img src="Images/backgroundchat2.jpg" alt="Background" class="background-image">
+    <div class="content">
+      <h1 class="main-heading">أهلا!</h1>
+      <p class="sub-heading">أنا مساعدك الآلي</p>
+      <p class="sub-heading-2">كيف يمكنني مساعدتك؟</p>
+      <button (click)="toggleChat()" class="chat-button">
+        هيا نتحدث
+      </button>
+    </div>
+    
+    <div class="availability-indicator">
+      <span class="indicator-dot"></span>
+      <span class="indicator-text">24/7</span>
+    </div>
+  </div>
+
+  <div class="chat-content">
+    <!-- Initial bot message -->
+    <div class="message-wrapper bot-message">
+      <div class="message">
+        أهلا بيك، أنا المساعد الذكي لخدمة عملاء عيادة Glossy
+      </div>
+    </div>
+
+    <!-- Predefined buttons -->
+    <div class="predefined-buttons" [class.hidden]="hideButtons">
+      <button *ngFor="let key of predefinedKeys" 
+              (click)="sendPredefinedMessage(key)" 
+              class="predefined-button">
+        {{key}}
+      </button>
+    </div>
+
+    <!-- Chat messages -->
+    <div class="messages-container">
+      <div *ngFor="let message of messages" 
+           class="message-wrapper"
+           [ngClass]="{'user-message': message.sender === 'user', 'bot-message': message.sender === 'bot'}">
+        <div class="message">
+          {{message.text}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <input [(ngModel)]="userMessage" 
+           (keyup.enter)="sendMessage()" 
+           class="form-control" 
+           placeholder="اكتب رسالتك هنا...">
+           <button (click)="sendMessage()" class="send-button" [disabled]="!userMessage.trim()">
+            <i class="bi bi-send-fill"></i>
+          </button>  </div>
+</div>

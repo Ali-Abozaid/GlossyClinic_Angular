@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+.rtl-container {
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+  text-align: right;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  
+  .booking-header {
+    margin-bottom: 2rem;
+    
+    h1 {
+      color: #2c3e50;
+      font-size: 2.8rem;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 0.5rem;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 60px;
+        height: 3px;
+        background-color: currentColor;
+      }
+    }
+  }
+
+  .booking-card {
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      
+      label {
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      
+      .form-select, .form-control {
+        font-size: 1.1rem;
+        padding: 0.8rem 1rem;
+        border: 1px solid #e9ecef;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+        
+        &:focus {
+          border-color: #3498db;
+          box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+          background-color: #fff;
+        }
+        
+      }
+      .validation-error {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: flex;
+        align-items: center;
+        
+        &::before {
+          content: '•';
+          margin-left: 0.5rem;
+          font-size: 1.2rem;
+        }
+      }
+      .mat-form-field {
+        width: 100%;
+        
+        ::ng-deep {
+          .mat-form-field-wrapper {
+            padding-bottom: 0;
+          }
+          
+          .mat-form-field-outline {
+            background-color: #f8f9fa;
+          }
+          
+          .mat-form-field-flex {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+          }
+          
+          .mat-datepicker-toggle {
+            color: #e7ecf0;
+          }
+        }
+      }
+    }
+    
+    .time-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      
+      .time-slot-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid #3498db;
+        border-radius: 0.5rem;
+        color: #3498db;
+        background-color: transparent;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        
+        &:hover:not(:disabled) {
+          background-color: #3498db;
+          color: #fff;
+        }
+        
+        &.active {
+          background-color: #3498db;
+          color: #fff;
+        }
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+    
+    .submit-btn {
+      background-color: #52A1E6 !important;
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      height: 56px;
+      
+      &:hover:not(:disabled) {
+        background-color: #2391da !important;
+        transform: translateY(-5px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+      
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+    
+  }
+  
+}
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #fff !important;
+}
+
+/* Success Modal Styling */
+.success-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; 
+  animation: fadeIn 0.3s ease-out;
+}
+
+.success-modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: slideIn 0.3s ease-out;
+  position: relative; 
+  z-index: 10000; 
+}
+
+.success-icon {
+  color: #28a745;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.success-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.success-message {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.success-button {
+  padding: 0.5rem 2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.success-button:hover {
+  background-color: #0056b3;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .rtl-container {
+    padding: 1rem;
+  }
+  
+  .booking-container {
+    .booking-header {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    .booking-card {
+      padding: 1.5rem;
+    }
+  }
+}
